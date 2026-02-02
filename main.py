@@ -180,7 +180,7 @@ print(f"📄 Loaded {len(ENTRIES)} entries")
 SUBMIT_URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries/store"
 INTERNSHIP_ID = 702
 
-REQUEST_DELAY = 1.5
+REQUEST_DELAY = 2
 MAX_RETRIES = 3
 TIMEOUT = 15
 
