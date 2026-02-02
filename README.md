@@ -25,7 +25,7 @@ A `--dry-run` mode is included to preview payloads without making any changes on
 
 ```text
 .
-├── submit_diaries.py   # Main script
+├── main.py             # Main script
 ├── entries.json        # Diary entries (input)
 ├── .env                # Credentials (not committed)
 ├── README.md
@@ -77,16 +77,6 @@ Create a `.env` file in the project root:
 INTERNYET_EMAIL=your_email@example.com
 INTERNYET_PASSWORD=your_password_here
 ```
-
-⚠️ **Important**
-
-* Do **not** commit `.env` to version control
-* Add this to `.gitignore`:
-
-```gitignore
-.env
-```
-
 ---
 
 ## 📝 Creating `entries.json`
