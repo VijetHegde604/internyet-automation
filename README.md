@@ -1,9 +1,4 @@
-Here’s a **clean, professional, copy-paste-ready `README.md`** written in proper Markdown.
-It’s structured so **anyone (including future-you)** can understand, set up, and run the project safely.
 
----
-
-````markdown
 # Internship Diary Submission Automation
 
 This project automates the submission of internship diary entries to the **Internyet (VTU) portal** using its official API.
