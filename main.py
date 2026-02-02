@@ -214,7 +214,7 @@ def submit_entry(entry):
                 timeout=TIMEOUT
             )
 
-            if r.status_code == 200:
+            if r.status_code in (200, 201):
                 return True, r.text
 
             print(f"⚠ Attempt {attempt}: {r.status_code}")
