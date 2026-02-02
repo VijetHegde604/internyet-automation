@@ -1,6 +1,56 @@
 import requests
 import time
+import os
+import json
+import argparse
+from dotenv import load_dotenv
 
+# ─────────────────────────────────────────────
+# ARGUMENTS
+# ─────────────────────────────────────────────
+parser = argparse.ArgumentParser(
+    description="Internship diary submission tool"
+)
+parser.add_argument(
+    "--dry-run",
+    action="store_true",
+    help="Print payloads without submitting to the server"
+)
+args = parser.parse_args()
+DRY_RUN = args.dry_run
+
+# ─────────────────────────────────────────────
+# ENV SETUP
+# ─────────────────────────────────────────────
+load_dotenv()
+
+EMAIL = os.getenv("INTERNYET_EMAIL")
+PASSWORD = os.getenv("INTERNYET_PASSWORD")
+
+if not DRY_RUN:
+    if not EMAIL or not PASSWORD:
+        raise RuntimeError("❌ Missing INTERNYET_EMAIL or INTERNYET_PASSWORD in .env")
+
+# ─────────────────────────────────────────────
+# SESSION
+# ─────────────────────────────────────────────
+session = requests.Session()
+
+HEADERS = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Origin": "https://vtu.internyet.in",
+    "Referer": "https://vtu.internyet.in/",
+    "User-Agent": (
+        "Mozilla/5.0 (X11; Linux x86_64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    )
+}
+
+# ─────────────────────────────────────────────
+# SKILL LOOKUP
+# ─────────────────────────────────────────────
 SKILL_LOOKUP = {
     "3D PRINTING CONCEPTS, DESIGN AND PRINTING": 85,
     "Android Studio": 61,
@@ -90,29 +140,56 @@ SKILL_LOOKUP = {
     "Xcode": 60
 }
 
+# ─────────────────────────────────────────────
+# LOGIN
+# ─────────────────────────────────────────────
+LOGIN_URL = "https://vtuapi.internyet.in/api/v1/auth/login"
 
+if DRY_RUN:
+    print("🧪 DRY-RUN MODE: Login skipped")
+else:
+    login_payload = {
+        "email": EMAIL,
+        "password": PASSWORD
+    }
 
-URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries/store"
+    resp = session.post(
+        LOGIN_URL,
+        json=login_payload,
+        headers=HEADERS,
+        timeout=15
+    )
 
-cookies = {
-    "access_token": "",
-    "refresh_token": ""
-}
+    if resp.status_code != 200:
+        raise RuntimeError(f"❌ Login failed: {resp.status_code} → {resp.text}")
 
-headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Origin": "https://vtu.internyet.in",
-    "Referer": "https://vtu.internyet.in/"
-}
+    print("✅ Logged in successfully")
+    print("🍪 Cookies:", session.cookies.get_dict())
 
-internship_id = 702
+# ─────────────────────────────────────────────
+# LOAD ENTRIES
+# ─────────────────────────────────────────────
+with open("entries.json", "r", encoding="utf-8") as f:
+    ENTRIES = json.load(f)
 
+print(f"📄 Loaded {len(ENTRIES)} entries")
+
+# ─────────────────────────────────────────────
+# CONSTANTS
+# ─────────────────────────────────────────────
+SUBMIT_URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries/store"
+INTERNSHIP_ID = 702
+
+REQUEST_DELAY = 1.5
+MAX_RETRIES = 3
+TIMEOUT = 15
+
+# ─────────────────────────────────────────────
+# SUBMIT FUNCTION
+# ─────────────────────────────────────────────
 def submit_entry(entry):
-    skill_ids = [SKILL_LOOKUP[s] for s in entry["skills"]]
-
     payload = {
-        "internship_id": internship_id,
+        "internship_id": INTERNSHIP_ID,
         "date": entry["date"],
         "description": entry["work_summary"],
         "hours": entry["hours"],
@@ -120,37 +197,54 @@ def submit_entry(entry):
         "blockers": entry["blockers"],
         "learnings": entry["learnings"],
         "mood_slider": 5,
-        "skill_ids": skill_ids
+        "skill_ids": [SKILL_LOOKUP[s] for s in entry["skills"]]
     }
 
-    response = requests.post(
-        URL,
-        json=payload,
-        headers=headers,
-        cookies=cookies
-    )
+    if DRY_RUN:
+        print("\n🧪 DRY-RUN PAYLOAD")
+        print(payload)
+        return True, "dry-run"
 
-    return response.status_code, response.text
+    for attempt in range(1, MAX_RETRIES + 1):
+        try:
+            r = session.post(
+                SUBMIT_URL,
+                json=payload,
+                headers=HEADERS,
+                timeout=TIMEOUT
+            )
 
+            if r.status_code == 200:
+                return True, r.text
+
+            print(f"⚠ Attempt {attempt}: {r.status_code}")
+            time.sleep(2 * attempt)
+
+        except Exception as e:
+            print(f"❌ Attempt {attempt} failed: {e}")
+            time.sleep(2 * attempt)
+
+    return False, "Failed after retries"
+
+# ─────────────────────────────────────────────
+# SUBMIT ALL ENTRIES
+# ─────────────────────────────────────────────
+success = 0
+failure = 0
 
 for entry in ENTRIES:
-    status, resp = submit_entry(entry)
-    print(f"{entry['date']} → {status}")
-    time.sleep(5)
+    ok, resp = submit_entry(entry)
 
+    if ok:
+        print(f"✅ {entry['date']} {'checked' if DRY_RUN else 'submitted'}")
+        success += 1
+    else:
+        print(f"❌ {entry['date']} failed → {resp}")
+        failure += 1
 
-# curl 'https://vtuapi.internyet.in/api/v1/student/internship-applys?page=1&status=6' \
-#   -H 'Accept: application/json, text/plain, */*' \
-#   -H 'Accept-Language: en-US,en;q=0.6' \
-#   -H 'Connection: keep-alive' \
-#   -b 'access_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Z0dWFwaS5pbnRlcm55ZXQuaW4vYXBpL3YxL2F1dGgvbG9naW4iLCJpYXQiOjE3NzAwNDExODgsImV4cCI6MTc3MDA0NDc4OCwibmJmIjoxNzcwMDQxMTg4LCJqdGkiOiJ4THdZcHVhUlVRbG9qVDk0Iiwic3ViIjoiNzE0ODgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.cmzKYiZzImbBlAWmwNyvreAFH2RwDkPo2YeIgO_lVLA; refresh_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3Z0dWFwaS5pbnRlcm55ZXQuaW4vYXBpL3YxL2F1dGgvbG9naW4iLCJpYXQiOjE3NzAwNDExODgsImV4cCI6MTc3MDA2MTM0OCwibmJmIjoxNzcwMDQxMTg4LCJqdGkiOiJXbkQ1WWJmRHNWdjRGVlY1Iiwic3ViIjoiNzE0ODgiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3IiwidHlwZSI6InJlZnJlc2gifQ.AJ7gzfiq-5BUiWh-v0zjXiekRpitDlOOAgHiPkZLuWA; twk_uuid_689c7188a7ee3319309bdeae=%7B%22uuid%22%3A%221.Sx0cMq5hpFP71DcrPalNbW1TQX8CBAjPPoQWe7RgzgFMLyKldXQrB1QTLDBtMtiLOGbVCumT4GzClnYKK0hSPXtEnCU6v75T1lqWBHyVbsw0Uh81jpFyR%22%2C%22version%22%3A3%2C%22domain%22%3A%22internyet.in%22%2C%22ts%22%3A1770041624101%7D' \
-#   -H 'Origin: https://vtu.internyet.in' \
-#   -H 'Referer: https://vtu.internyet.in/' \
-#   -H 'Sec-Fetch-Dest: empty' \
-#   -H 'Sec-Fetch-Mode: cors' \
-#   -H 'Sec-Fetch-Site: same-site' \
-#   -H 'Sec-GPC: 1' \
-#   -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36' \
-#   -H 'sec-ch-ua: "Not(A:Brand";v="8", "Chromium";v="144", "Brave";v="144"' \
-#   -H 'sec-ch-ua-mobile: ?0' \
-#   -H 'sec-ch-ua-platform: "Linux"'
+    if not DRY_RUN:
+        time.sleep(REQUEST_DELAY)
+
+print("\n📊 SUMMARY")
+print("Success:", success)
+print("Failed :", failure)
