@@ -1,11 +1,10 @@
 [
-    {
-    "date": "2025-12-24",
-    "work_summary": "Attended a team meeting to discuss Project Parent Luxuria and prepared a Product Requirements Document (PRD) defining the tech stack and development timelines.",
-    "hours": 3,
-    "learnings": "Gained experience in project planning and defining technical requirements for a new development cycle.",
+  {
+    "date": "2026-02-11",
+    "work_summary": "Today I explored Nix as a package manager and focused on how it enables reproducible builds. Each build is determined entirely by its inputs—source, dependencies, and configuration—which are hashed and stored in isolated paths. This design ensures that installing or updating software does not cause side effects or dependency conflicts.",
+    "hours": 8,
+    "learnings": "I learned how reproducibility is achieved by pinning exact versions of dependencies and configurations, allowing the same build to be recreated reliably across different machines and environments. Using tools like Nix expressions and flakes, environments can be described once and reproduced anywhere, making onboarding, CI/CD, and debugging significantly more predictable.",
     "blockers": "None.",
-    "skills": ["Database design"]
-    }
-
+    "skills": ["DevOps", "Python"]
+  }
 ]

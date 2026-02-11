@@ -1,0 +1,331 @@
+[
+  {
+    "date": "2025-12-24",
+    "work_summary": "Participated in a structured team meeting for Project Parent Luxuria where overall project objectives, business requirements, and expected deliverables were discussed in detail. Contributed to early-stage planning discussions and independently prepared a comprehensive Product Requirements Document (PRD) that clearly outlined the proposed technology stack, system scope, feature breakdown, dependencies, and high-level development timelines to guide the upcoming implementation phase.",
+    "hours": 8,
+    "learnings": "Developed a strong understanding of formal project planning processes, requirement gathering techniques, and how to convert abstract business ideas into precise technical documentation that can be effectively used by development teams.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+  {
+    "date": "2025-12-25",
+    "work_summary": "Worked closely with the UI/UX design team to refine interface designs for Project Parent Luxuria using Figma. Focused on improving layout structures, component hierarchy, spacing, and alignment while ensuring consistency with the project’s design system. Participated in collaborative design reviews and incorporated feedback in real time.",
+    "hours": 8,
+    "learnings": "Improved proficiency in collaborative UI/UX workflows, learned effective use of shared design libraries, and gained experience in coordinating design decisions within a team-based environment.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2025-12-26",
+    "work_summary": "Designed a complete end-to-end UI/UX solution for the Nican Resort Management System. Covered key functional modules including reservations, customer management, service tracking, and administrative dashboards, ensuring the interface was intuitive, scalable, and aligned with real-world resort operations.",
+    "hours": 8,
+    "learnings": "Strengthened the ability to design comprehensive interfaces for service-based management systems and gained experience in mapping real operational workflows into structured digital layouts.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+  {
+    "date": "2025-12-27",
+    "work_summary": "Conducted a detailed technical and usability review of the resort management system’s navigation flow. Analyzed user journeys across multiple screens and optimized the interface for mobile devices to ensure ease of access for guests and staff using smartphones and tablets.",
+    "hours": 4,
+    "learnings": "Refined mobile-first design principles and learned to identify usability bottlenecks and friction points in complex booking and navigation workflows.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2025-12-28",
+    "work_summary": "Performed independent research on localization standards and best practices for East African payment gateways. Focused on understanding currency presentation, payment flow expectations, and regional usability norms in preparation for future integration tasks.",
+    "hours": 2,
+    "learnings": "Gained insight into regional financial UI standards, localization challenges, and how cultural and regional factors influence payment-related user experiences.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+  {
+    "date": "2025-12-29",
+    "work_summary": "Enhanced the Resort Management System UI/UX to support Uganda-based payment gateways. Integrated Uganda Shilling (UGX) as the default currency across all relevant screens, ensuring consistent formatting, clarity, and alignment with regional financial expectations.",
+    "hours": 8,
+    "learnings": "Developed a deeper understanding of localization requirements for payment systems, including currency handling, formatting standards, and regional usability considerations.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+  {
+    "date": "2025-12-30",
+    "work_summary": "Revised the Resort Management System UI/UX based on structured client feedback. Implemented changes to color schemes, visual hierarchy, spacing, and module placement to better reflect branding guidelines and improve overall usability.",
+    "hours": 8,
+    "learnings": "Learned how to interpret subjective client feedback and translate it into concrete, actionable UI improvements while maintaining consistency across the application.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2025-12-31",
+    "work_summary": "Performed a comprehensive year-end audit of all active Figma files across multiple projects. Standardized components, synchronized design tokens, and ensured visual consistency between Project Parent Luxuria and the Resort Management System.",
+    "hours": 8,
+    "learnings": "Improved skills in maintaining consistency across large-scale, multi-file design projects and learned best practices for long-term design system maintenance.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-01",
+    "work_summary": "Prepared a detailed Product Requirements Document (PRD) for the Nican Resort Management System. Documented functional requirements, system workflows, data relationships, and database considerations to support the development team during implementation.",
+    "hours": 8,
+    "learnings": "Enhanced ability to write structured technical documentation and gained confidence in defining complete system requirements for complex management platforms.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+  {
+    "date": "2026-01-02",
+    "work_summary": "Designed the UI/UX for a Payroll System webpage with a focus on salary payslip viewing, payment history tracking, and clear presentation of financial data for employees and administrators.",
+    "hours": 8,
+    "learnings": "Learned best practices for designing data-heavy financial interfaces while ensuring clarity, accessibility, and ease of interpretation for end users.",
+    "blockers": "None.",
+    "skills": ["Data visualization", "Layout Design"]
+  },
+
+  {
+    "date": "2026-01-03",
+    "work_summary": "Designed two dedicated webpages for BABA TV, including a Business Page and a Sales Tracker interface. Explored multiple layout variations to accommodate different content priorities and business use cases, ensuring clarity, scalability, and brand alignment across media-focused dashboards.",
+    "hours": 8,
+    "learnings": "Enhanced efficiency in producing multiple UI variations and improved adaptability when designing interfaces for media and broadcasting platforms with diverse data presentation needs.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+  {
+    "date": "2026-01-04",
+    "work_summary": "Conducted in-depth research on modern media dashboard trends and best practices. Analyzed how leading broadcasting platforms structure sales and analytics dashboards to optimize information hierarchy and visual clarity.",
+    "hours": 2,
+    "learnings": "Explored contemporary data visualization patterns tailored to the broadcasting industry and learned how visual hierarchy influences quick decision-making.",
+    "blockers": "None.",
+    "skills": ["Data visualization", "Layout Design"]
+  },
+  {
+    "date": "2026-01-05",
+    "work_summary": "Refined the BABA TV Business Page layout based on internal design reviews. Focused on improving typography, spacing, alignment, and readability to enhance user engagement and brand consistency.",
+    "hours": 8,
+    "learnings": "Developed a deeper understanding of how micro-typography and spacing choices directly impact usability and user perception on content-heavy landing pages.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-06",
+    "work_summary": "Drafted technical specifications for the Payroll System backend with a strong focus on secure handling of sensitive salary and employee data. Documented encryption considerations, access control expectations, and data flow between system components.",
+    "hours": 8,
+    "learnings": "Gained exposure to backend security considerations in HR and payroll systems, particularly around data confidentiality and role-based access control.",
+    "blockers": "None.",
+    "skills": ["Database design", "Data encryption"]
+  },
+  {
+    "date": "2026-01-07",
+    "work_summary": "Optimized the Payroll System UI/UX to ensure compatibility with Microsoft Power Apps. Adjusted layouts, simplified components, and refined interactions to meet platform-specific limitations while preserving usability.",
+    "hours": 8,
+    "learnings": "Learned how low-code platform constraints influence UI decisions and how to adapt complex designs into simplified, platform-compliant interfaces.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+  {
+    "date": "2026-01-08",
+    "work_summary": "Updated the BABA TV UI/UX designs based on structured stakeholder feedback. Refined visual elements, spacing, and interaction flows to improve overall usability and clarity.",
+    "hours": 8,
+    "learnings": "Improved ability to iteratively refine designs using stakeholder input while maintaining consistency and design intent.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-09",
+    "work_summary": "Designed the UI/UX for a Payments Tracking Web Application focused on read-only verification workflows. Ensured data clarity, audit-friendly layouts, and secure presentation of transaction records.",
+    "hours": 8,
+    "learnings": "Gained experience in designing security-focused, view-only applications that prioritize auditability and accuracy over interaction complexity.",
+    "blockers": "None.",
+    "skills": ["Data visualization", "Layout Design"]
+  },
+  {
+    "date": "2026-01-10",
+    "work_summary": "Enhanced the Payroll System UI/UX by introducing new features, implementing a settings page, and integrating Uganda Shilling (UGX) localization across relevant financial views.",
+    "hours": 8,
+    "learnings": "Learned how to integrate global configuration settings and localized currency support into an existing system without disrupting user experience.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-11",
+    "work_summary": "Performed an internal UX audit of the Payments Tracking application. Reviewed information hierarchy, accessibility considerations, and task efficiency for audit-related workflows.",
+    "hours": 3,
+    "learnings": "Refined skills in task-oriented UX auditing and learned to identify usability improvements in data-dense verification tools.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+  {
+    "date": "2026-01-12",
+    "work_summary": "Designed the UI/UX for an Event Materials Rental System, focusing on inventory visibility, booking workflows, availability tracking, and administrative controls.",
+    "hours": 8,
+    "learnings": "Developed a strong understanding of designing systems centered around inventory management and asset lifecycle workflows.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+  {
+    "date": "2026-01-13",
+    "work_summary": "Integrated brand-aligned iconography and visual indicators into the Event Materials Rental System to improve navigation clarity and reduce cognitive load for users.",
+    "hours": 8,
+    "learnings": "Learned how consistent iconography enhances usability, recognition, and navigation speed within management applications.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-14",
+    "work_summary": "Designed a dedicated module for tracking equipment damage and maintenance within the Event Materials Rental System. Focused on edge cases such as loss reporting, repair logs, and asset condition history.",
+    "hours": 8,
+    "learnings": "Gained insight into designing for operational edge cases and learned how maintenance workflows integrate with core inventory systems.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "Database design"]
+  },
+  {
+    "date": "2026-01-15",
+    "work_summary": "Collaborated with backend developers to map the database schema for the Broadway Printing Press ERP order management module, ensuring alignment between data structures and UI components.",
+    "hours": 8,
+    "learnings": "Improved cross-functional collaboration skills and learned how early coordination between design and backend development reduces implementation gaps.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+  {
+    "date": "2026-01-16",
+    "work_summary": "Created high-fidelity interactive prototypes for the Broadway Printing Press production dashboard, simulating real-time status changes and workflow transitions.",
+    "hours": 8,
+    "learnings": "Learned to design complex prototypes that represent dynamic system states and production progress accurately.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+  {
+    "date": "2026-01-17",
+    "work_summary": "Designed the complete UI/UX for the Broadway Printing Press ERP, covering order intake, production tracking, job status monitoring, and administrative views.",
+    "hours": 8,
+    "learnings": "Gained exposure to ERP-scale design complexity and learned how to organize extensive feature sets into intuitive interfaces.",
+    "blockers": "None.",
+    "skills": ["Database design", "Layout Design"]
+  },
+  {
+    "date": "2026-01-18",
+    "work_summary": "Participated in a project synchronization meeting for the Paul Property Management System. Defined the tenant onboarding workflow and discussed legal and operational data requirements.",
+    "hours": 4,
+    "learnings": "Understood the UX requirements of property management systems, particularly around legally required tenant data and compliance considerations.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+  {
+    "date": "2026-01-19",
+    "work_summary": "Refined the tenant dashboard for the Property Management System, adding structured property listing views and improving data organization for property-centric information.",
+    "hours": 8,
+    "learnings": "Improved ability to design layouts optimized for property-related data visualization and management workflows.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+  {
+    "date": "2026-01-20",
+    "work_summary": "Implemented coordinated design updates across the Event Materials Rental System and Broadway Printing Press ERP, including logo integration and consistent brand color application.",
+    "hours": 8,
+    "learnings": "Learned how to align application UI designs with corporate branding standards while maintaining usability and clarity.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-21",
+    "work_summary": "Designed the UI/UX for the Paul Property Management System, focusing on property listings, tenant management, and administrative dashboards.",
+    "hours": 8,
+    "learnings": "Strengthened understanding of property management workflows and role-based interface requirements.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+  {
+    "date": "2026-01-22",
+    "work_summary": "Updated UI/UX designs across multiple projects, including Paul Property Management System and Broadway Printing Press ERP, based on newly received requirements.",
+    "hours": 8,
+    "learnings": "Developed the ability to efficiently manage and prioritize design updates across multiple parallel projects.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-23",
+    "work_summary": "Designed the UI/UX for a Sales Tracker Application for Pakwach FM Radio, focusing on sales performance monitoring, reporting dashboards, and usability for non-technical users.",
+    "hours": 8,
+    "learnings": "Learned to tailor data-driven interfaces to industry-specific workflows within radio station sales operations.",
+    "blockers": "None.",
+    "skills": ["Data visualization", "Layout Design"]
+  },
+  {
+    "date": "2026-01-24",
+    "work_summary": "Implemented UI/UX revisions for the Pakwach FM Sales Tracker, including creating an alternative version without the agents module to simplify workflows.",
+    "hours": 8,
+    "learnings": "Gained experience in modular design and learned how to simplify systems without compromising usability.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-25",
+    "work_summary": "Finalized Pakwach FM Radio UI assets for developer handoff, preparing SVG exports, color palettes, and layout documentation for smooth implementation.",
+    "hours": 8,
+    "learnings": "Improved developer handoff processes and learned how clear documentation reduces implementation friction.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+  {
+    "date": "2026-01-26",
+    "work_summary": "Prepared a comprehensive Product Requirements Document (PRD) for the Pakwach FM Radio Sales Tracker Application, detailing functional flows, technical expectations, and data requirements.",
+    "hours": 8,
+    "learnings": "Strengthened documentation skills and learned how to formalize business and technical requirements for sales-oriented applications.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+  {
+    "date": "2026-01-27",
+    "work_summary": "Designed the UI/UX for a School Management System, covering administrative workflows, student records, and academic tracking features.",
+    "hours": 8,
+    "learnings": "Developed an understanding of design requirements specific to educational administration systems.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+  {
+    "date": "2026-01-28",
+    "work_summary": "Designed a new Resort Management System by adapting and reusing proven design patterns from the Nican Resort project for a different operational context.",
+    "hours": 8,
+    "learnings": "Learned how to efficiently reuse and adapt existing design patterns while accommodating new project requirements.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-29",
+    "work_summary": "Prepared a detailed Product Requirements Document (PRD) for the Broadway Printing Press ERP, translating UI concepts into structured technical specifications.",
+    "hours": 8,
+    "learnings": "Improved ability to convert design decisions into clear, developer-friendly requirement documentation.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+  {
+    "date": "2026-01-30",
+    "work_summary": "Designed a restaurant application featuring a QR-code-based menu landing page and prepared a supporting PRD for the Resort Management System.",
+    "hours": 8,
+    "learnings": "Developed understanding of QR-driven customer interaction workflows and restaurant-focused application design patterns.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "Database design"]
+  },
+  {
+    "date": "2026-01-31",
+    "work_summary": "Updated the restaurant application UI/UX based on revised requirements, improving layout flow, navigation clarity, and feature discoverability.",
+    "hours": 8,
+    "learnings": "Refined restaurant-specific UI elements to better align with real-world user behavior and project goals.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-02-01",
+    "work_summary": "Conducted an accessibility-focused review of the yoga classes webpage concept, analyzing color contrast, font legibility, and overall readability.",
+    "hours": 4,
+    "learnings": "Learned to apply WCAG accessibility principles to wellness-focused web interfaces.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+  {
+    "date": "2026-02-02",
+    "work_summary": "Designed a clean, calm, and accessible UI/UX for the Rashtrotthana Yoga classes webpage, focusing on clarity, minimalism, and user engagement.",
+    "hours": 8,
+    "learnings": "Learned how to design minimal, accessibility-conscious interfaces suitable for wellness and yoga platforms.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  }
+]
