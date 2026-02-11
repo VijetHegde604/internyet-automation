@@ -1,20 +1,19 @@
-import requests
-import time
-import os
-import json
 import argparse
+import json
+import os
+import time
+
+import requests
 from dotenv import load_dotenv
 
 # ─────────────────────────────────────────────
 # ARGUMENTS
 # ─────────────────────────────────────────────
-parser = argparse.ArgumentParser(
-    description="Internship diary submission tool"
-)
+parser = argparse.ArgumentParser(description="Internship diary submission tool")
 parser.add_argument(
     "--dry-run",
     action="store_true",
-    help="Print payloads without submitting to the server"
+    help="Print payloads without submitting to the server",
 )
 args = parser.parse_args()
 DRY_RUN = args.dry_run
@@ -27,9 +26,8 @@ load_dotenv()
 EMAIL = os.getenv("INTERNYET_EMAIL")
 PASSWORD = os.getenv("INTERNYET_PASSWORD")
 
-if not DRY_RUN:
-    if not EMAIL or not PASSWORD:
-        raise RuntimeError("❌ Missing INTERNYET_EMAIL or INTERNYET_PASSWORD in .env")
+if not DRY_RUN and (not EMAIL or not PASSWORD):
+    raise RuntimeError("❌ Missing INTERNYET_EMAIL or INTERNYET_PASSWORD in .env")
 
 # ─────────────────────────────────────────────
 # SESSION
@@ -45,7 +43,7 @@ HEADERS = {
         "Mozilla/5.0 (X11; Linux x86_64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/120.0.0.0 Safari/537.36"
-    )
+    ),
 }
 
 # ─────────────────────────────────────────────
@@ -137,7 +135,7 @@ SKILL_LOOKUP = {
     "WAN": 49,
     "WordPress": 6,
     "Xamarin": 57,
-    "Xcode": 60
+    "Xcode": 60,
 }
 
 # ─────────────────────────────────────────────
@@ -148,23 +146,17 @@ LOGIN_URL = "https://vtuapi.internyet.in/api/v1/auth/login"
 if DRY_RUN:
     print("🧪 DRY-RUN MODE: Login skipped")
 else:
-    login_payload = {
-        "email": EMAIL,
-        "password": PASSWORD
-    }
-
-    resp = session.post(
+    r = session.post(
         LOGIN_URL,
-        json=login_payload,
+        json={"email": EMAIL, "password": PASSWORD},
         headers=HEADERS,
-        timeout=15
+        timeout=15,
     )
 
-    if resp.status_code != 200:
-        raise RuntimeError(f"❌ Login failed: {resp.status_code} → {resp.text}")
+    if r.status_code != 200:
+        raise RuntimeError(f"❌ Login failed: {r.status_code} → {r.text}")
 
     print("✅ Logged in successfully")
-    print("🍪 Cookies:", session.cookies.get_dict())
 
 # ─────────────────────────────────────────────
 # LOAD ENTRIES
@@ -178,16 +170,73 @@ print(f"📄 Loaded {len(ENTRIES)} entries")
 # CONSTANTS
 # ─────────────────────────────────────────────
 SUBMIT_URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries/store"
+FETCH_URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries"
 INTERNSHIP_ID = 702
 
-REQUEST_DELAY = 2
+REQUEST_DELAY = 5
 MAX_RETRIES = 3
 TIMEOUT = 15
 
+
 # ─────────────────────────────────────────────
-# SUBMIT FUNCTION
+# FETCH EXISTING ENTRIES (ROBUST)
 # ─────────────────────────────────────────────
-def submit_entry(entry):
+def fetch_existing_entries():
+    all_entries = []
+    page = 1
+
+    while True:
+        r = session.get(
+            FETCH_URL,
+            headers=HEADERS,
+            params={"page": page},
+            timeout=TIMEOUT,
+        )
+
+        if r.status_code != 200:
+            raise RuntimeError(
+                f"Failed to fetch entries (page {page}): {r.status_code}"
+            )
+
+        payload = r.json()
+
+        # Laravel-style pagination
+        data_block = payload.get("data", {})
+
+        if not isinstance(data_block, dict):
+            break
+
+        page_entries = data_block.get("data", [])
+        last_page = data_block.get("last_page", page)
+
+        all_entries.extend(page_entries)
+
+        if page >= last_page:
+            break
+
+        page += 1
+        time.sleep(0.5)  # polite delay
+
+    return all_entries
+
+
+DATE_TO_ID = {}
+
+if not DRY_RUN:
+    existing_entries = fetch_existing_entries()
+    DATE_TO_ID = {
+        e["date"]: e["id"]
+        for e in existing_entries
+        if isinstance(e, dict) and "date" in e and "id" in e
+    }
+
+print(f"📚 Existing entries found: {len(DATE_TO_ID)}")
+
+
+# ─────────────────────────────────────────────
+# CREATE / UPDATE FUNCTION
+# ─────────────────────────────────────────────
+def submit_or_update_entry(entry):
     payload = {
         "internship_id": INTERNSHIP_ID,
         "date": entry["date"],
@@ -197,13 +246,19 @@ def submit_entry(entry):
         "blockers": entry["blockers"],
         "learnings": entry["learnings"],
         "mood_slider": 5,
-        "skill_ids": [SKILL_LOOKUP[s] for s in entry["skills"]]
+        "skill_ids": [SKILL_LOOKUP[s] for s in entry["skills"]],
     }
 
+    if entry["date"] in DATE_TO_ID:
+        payload["id"] = DATE_TO_ID[entry["date"]]
+        action = "UPDATE"
+    else:
+        action = "CREATE"
+
     if DRY_RUN:
-        print("\n🧪 DRY-RUN PAYLOAD")
+        print(f"\n🧪 DRY-RUN {action}")
         print(payload)
-        return True, "dry-run"
+        return True, action
 
     for attempt in range(1, MAX_RETRIES + 1):
         try:
@@ -211,11 +266,11 @@ def submit_entry(entry):
                 SUBMIT_URL,
                 json=payload,
                 headers=HEADERS,
-                timeout=TIMEOUT
+                timeout=TIMEOUT,
             )
 
             if r.status_code in (200, 201):
-                return True, r.text
+                return True, action
 
             print(f"⚠ Attempt {attempt}: {r.status_code}")
             time.sleep(2 * attempt)
@@ -226,20 +281,21 @@ def submit_entry(entry):
 
     return False, "Failed after retries"
 
+
 # ─────────────────────────────────────────────
-# SUBMIT ALL ENTRIES
+# PROCESS ALL ENTRIES
 # ─────────────────────────────────────────────
 success = 0
 failure = 0
 
 for entry in ENTRIES:
-    ok, resp = submit_entry(entry)
+    ok, result = submit_or_update_entry(entry)
 
     if ok:
-        print(f"✅ {entry['date']} {'checked' if DRY_RUN else 'submitted'}")
+        print(f"✅ {entry['date']} → {result}")
         success += 1
     else:
-        print(f"❌ {entry['date']} failed → {resp}")
+        print(f"❌ {entry['date']} → {result}")
         failure += 1
 
     if not DRY_RUN:
