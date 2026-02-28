@@ -1,226 +1,279 @@
+# InternYet Internship Diary Automation Tool
 
-# Internship Diary Submission Automation
+This project automates submission, updating, and backup of internship diary entries on the InternYet (VTU) portal using its official API.
 
-This project automates the submission of internship diary entries to the **Internyet (VTU) portal** using its official API.
-
-It logs in automatically, reads diary entries from a JSON file, and submits them at a safe, human-like rate.  
-A `--dry-run` mode is included to preview payloads without making any changes on the server.
+The tool performs authenticated login, fetches existing diary entries, safely creates or updates entries, and maintains automatic local backups. It also includes validation and dry-run capabilities to prevent accidental submissions.
 
 ---
 
-## ✨ Features
+## Features
 
-- Automatic login (no manual token copying)
-- Uses a real browser User-Agent
-- Reads entries from a JSON file
-- Full skill name → skill ID lookup
-- Safe rate limiting (university-friendly)
-- Retry with backoff on failures
-- Clear success/failure summary
-- `--dry-run` mode for zero-risk testing
+### Authentication
+
+* Automatic login using credentials stored in `.env`
+* No manual token or cookie handling required
+* Uses official InternYet API endpoints
+
+### Smart Submission
+
+* Automatically creates or updates entries based on date
+* Detects existing portal entries before submission
+* Sequential submission to avoid server overload
+* Retry mechanism with exponential backoff
+
+### Backup Support
+
+* Fetches all existing diary entries from the portal
+* Stores timestamped JSON backups locally
+* Dedicated fetch-only mode for safe archival
+
+### Validation and Testing
+
+* Dry-run mode for safe validation
+* Skill name verification before submission
+* Clear success and failure summaries
+
+### CLI Improvements
+
+* Progress tracking during submission
+* Execution time reporting
+* Structured terminal output
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 .
-├── main.py             # Main script
-├── entries.json        # Diary entries (input)
-├── .env                # Credentials (not committed)
+├── main.py                         # Main automation script
+├── entries.json                    # Local internship diary entries
+├── existing_entries_*.json         # Automatically generated backups
+├── .env                            # Credentials (not committed)
 ├── README.md
-````
+```
 
 ---
 
-## 🧰 Requirements
+## Requirements
 
-* Python **3.9+**
-* An active Internyet account
+* Python 3.9 or newer
+* Active InternYet account
 * Internet connection
 
 ---
 
-## 📦 Installation
+## Installation
 
-### 1️⃣ Clone or copy the project
+### Clone the repository
 
 ```bash
 git clone <repo-url>
 cd internship-diary-automation
 ```
 
----
-
-### 2️⃣ Create a virtual environment (recommended)
+### Create a virtual environment (recommended)
 
 ```bash
 python -m venv venv
 source venv/bin/activate
 ```
 
----
-
-### 3️⃣ Install dependencies
+### Install dependencies
 
 ```bash
-pip install requests python-dotenv
+pip install requests python-dotenv colorama
 ```
 
 ---
 
-## 🔐 Environment Setup
+## Environment Setup
 
-Create a `.env` file in the project root:
+Create a `.env` file in the project root directory:
 
 ```env
 INTERNYET_EMAIL=your_email@example.com
 INTERNYET_PASSWORD=your_password_here
 ```
+
+Credentials are read only at runtime and are not stored elsewhere.
+
 ---
 
-## 📝 Creating `entries.json`
+## Creating `entries.json`
 
-All diary entries are read from `entries.json`.
+Diary entries are read from `entries.json`.
 
-### ✅ Example `entries.json`
+### Example
 
 ```json
 [
   {
     "date": "2026-01-01",
-    "work_summary": "Prepared a detailed Product Requirements Document (PRD) for the Nican Resort Management System.",
-    "hours": 2,
-    "learnings": "Documented full system requirements for a complex management platform.",
+    "work_summary": "Prepared a detailed Product Requirements Document.",
+    "hours": 8,
+    "learnings": "Improved system documentation practices.",
     "blockers": "None.",
     "skills": ["Database design"]
-  },
-  {
-    "date": "2026-01-02",
-    "work_summary": "Designed the UI/UX for a Payroll System webpage.",
-    "hours": 4,
-    "learnings": "Learned to design data-heavy pages focused on financial tracking.",
-    "blockers": "None.",
-    "skills": ["Data visualization", "Layout Design"]
   }
 ]
 ```
 
 ---
 
-### 📌 Field Rules
+## Field Definitions
 
-| Field          | Description                                |
-| -------------- | ------------------------------------------ |
-| `date`         | Format: `YYYY-MM-DD`                       |
-| `work_summary` | Description of work done                   |
-| `hours`        | Number (integer)                           |
-| `learnings`    | What you learned                           |
-| `blockers`     | Issues faced (use `"None."` if none)       |
-| `skills`       | List of skills (must match lookup exactly) |
+| Field          | Description                                  |
+| -------------- | -------------------------------------------- |
+| `date`         | Format: YYYY-MM-DD                           |
+| `work_summary` | Description of work performed                |
+| `hours`        | Integer value                                |
+| `learnings`    | Key outcomes or knowledge gained             |
+| `blockers`     | Issues faced (use `"None."` if none)         |
+| `skills`       | List of skills matching lookup names exactly |
 
-⚠️ Skill names **must match exactly** (case-sensitive).
-
----
-
-## 🧪 Dry-Run Mode (Recommended First)
-
-Dry-run prints the payloads without submitting anything.
-
-```bash
-python submit_diaries.py --dry-run
-```
-
-Output example:
-
-```text
-🧪 DRY-RUN MODE: Login skipped
-📄 Loaded 12 entries
-
-🧪 DRY-RUN PAYLOAD
-{'internship_id': 702, 'date': '2026-01-01', ...}
-
-✅ 2026-01-01 checked
-```
+Skill names are case-sensitive and must exist in the internal skill lookup table.
 
 ---
 
-## 🚀 Real Submission
+## Dry-Run Mode
 
-Once dry-run looks correct:
+Dry-run validates entries and prints intended actions without submitting data.
 
 ```bash
-python submit_diaries.py
+python main.py --dry-run
 ```
 
 Example output:
 
 ```text
-✅ Logged in successfully
-📄 Loaded 12 entries
-✅ 2026-01-01 submitted
-✅ 2026-01-02 submitted
+Dry-run mode enabled
+Loaded 12 entries
 
-📊 SUMMARY
-Success: 12
-Failed : 0
+[1/12] CREATE 2026-01-01
+[2/12] UPDATE 2026-01-02
+
+SUMMARY
+Success : 12
+Failed  : 0
+```
+
+No portal data is modified.
+
+---
+
+## Fetch-Only Mode
+
+Fetches all existing internship diary entries and saves them locally.
+
+```bash
+python main.py --fetch-only
+```
+
+This mode:
+
+* Logs in
+* Retrieves all portal entries
+* Saves a timestamped backup file
+* Exits without submitting anything
+
+Example output:
+
+```text
+Fetching existing portal entries
+Fetched 41 entries
+Backup saved → existing_entries_20260228_183021.json
 ```
 
 ---
 
-## 🕒 Rate Limiting & Safety
+## Real Submission
 
-* Requests are sent ~**2 seconds apart**
-* Sequential submissions (no parallel requests)
-* Mimics normal human usage
-* Safe for university portals
+After validating using dry-run:
 
----
-
-## 🔐 Authentication Details
-
-* Uses the same API as the web frontend
-* Access & refresh tokens are handled automatically via cookies
-* Tokens are never stored on disk
-* No manual cookie copying required
-
----
-
-
-## 🔒 Security Notes
-
-* Credentials live only in `.env`
-* No scraping or browser automation
-* Uses official API endpoints
-* No data is modified in dry-run mode
-
----
-
-## ✅ Recommended Workflow
-
-1. Prepare all diary entries
-2. Add them to `entries.json`
-3. Run `--dry-run`
-4. Verify payloads
-5. Run real submission
-6. Confirm entries on the portal
-
-
-## ⚠️ Disclaimer
-
-This script is intended for **personal academic use** on your own account.
-Do not use it to spam, scrape, or submit data you are not authorized to submit.
-
----
-
-## ✅ Final Notes
-
-This automation:
-
-* Looks like real browser traffic
-* Respects server limits
-* Is safe for academic portals
-* Saves significant manual effort
-
-
+```bash
+python main.py
 ```
+
+Example output:
+
+```text
+Logged in successfully
+Loaded 41 entries
+Fetching existing portal entries
+Backup saved → existing_entries_20260228_190112.json
+
+Processing Entries
+
+[1/41] UPDATE 2025-12-24
+[2/41] CREATE 2025-12-25
+
+SUMMARY
+Success : 41
+Failed  : 0
+Time    : 214.53s
+```
+
+---
+
+## Create vs Update Logic
+
+The tool automatically determines whether to create or update an entry:
+
+* Existing date on portal → entry updated
+* New date → entry created
+
+This allows safe repeated execution without duplication.
+
+---
+
+## Rate Limiting and Safety
+
+* Requests are sequential
+* Configurable delay between submissions
+* Retry handling for temporary failures
+* Designed to mimic normal user interaction
+
+The script is suitable for academic portal usage.
+
+---
+
+## Security Notes
+
+* Credentials are stored only in `.env`
+* No browser automation or scraping
+* Official API endpoints are used
+* Tokens are managed automatically by the session
+* Backups remain local
+
+---
+
+## Recommended Workflow
+
+1. Prepare diary entries in `entries.json`
+2. Run dry-run validation:
+
+   ```bash
+   python main.py --dry-run
+   ```
+3. Verify output
+4. Run submission:
+
+   ```bash
+   python main.py
+   ```
+5. Confirm entries on the portal
+6. Keep generated backups safely
+
+---
+
+## Disclaimer
+
+This tool is intended for personal academic use on your own InternYet account.
+
+Do not use this script for unauthorized automation, excessive requests, or submission of data you are not permitted to manage.
+
+---
+
+## Notes
+
+The automation respects server limits, uses authenticated API communication, and significantly reduces manual diary submission effort while maintaining safe operating behavior.
