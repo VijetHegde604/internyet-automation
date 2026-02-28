@@ -1,10 +1,366 @@
 [
   {
-    "date": "2026-02-11",
-    "work_summary": "Today I explored Nix as a package manager and focused on how it enables reproducible builds. Each build is determined entirely by its inputs—source, dependencies, and configuration—which are hashed and stored in isolated paths. This design ensures that installing or updating software does not cause side effects or dependency conflicts.",
+    "date": "2025-12-24",
+    "work_summary": "Participated in an extensive project initiation and strategic planning session for Project Parent Luxuria where stakeholders discussed operational challenges, expected automation goals, business scalability expectations, and long-term product sustainability requirements. Carefully documented stakeholder inputs and converted business discussions into structured functional modules including user management, analytics dashboards, reporting pipelines, administrative workflows, and centralized data handling mechanisms. Independently prepared a comprehensive Product Requirements Document outlining feature scope, assumptions, constraints, system boundaries, and dependency mapping across modules. Designed early database entity structures focusing on normalization, scalability, and optimized query planning. Created workflow diagrams illustrating communication between frontend interfaces, backend services, and persistent storage layers. Performed multiple validation passes ensuring logical consistency between requirements and technical feasibility before submitting the finalized document.",
     "hours": 8,
-    "learnings": "I learned how reproducibility is achieved by pinning exact versions of dependencies and configurations, allowing the same build to be recreated reliably across different machines and environments. Using tools like Nix expressions and flakes, environments can be described once and reproduced anywhere, making onboarding, CI/CD, and debugging significantly more predictable.",
+    "learnings": "Developed strong competency in requirement engineering and learned how structured documentation reduces development ambiguity. Improved ability to translate non-technical business goals into engineering-ready specifications. Gained understanding of early architectural decision making including scalability planning, database structuring, and workflow dependency identification. Learned how properly defined system scope prevents feature creep and improves collaboration between design and development teams while ensuring future maintainability.",
     "blockers": "None.",
-    "skills": ["DevOps", "Python"]
+    "skills": ["Database design"]
+  },
+
+  {
+    "date": "2025-12-25",
+    "work_summary": "Collaborated closely with the UI/UX design team to refine interface designs for Project Parent Luxuria using structured Figma workflows. Reviewed initial layouts and introduced standardized spacing systems, grid alignment strategies, and reusable component hierarchies to maintain consistency across modules. Improved typography scaling and visual balance while ensuring compliance with accessibility recommendations. Participated in iterative review sessions incorporating stakeholder feedback into layout improvements. Designed reusable UI components such as navigation structures, data panels, and interaction elements to support scalable expansion. Documented component behavior states including hover, disabled, validation, and responsive adaptations to ensure development clarity.",
+    "hours": 8,
+    "learnings": "Enhanced understanding of scalable design systems and collaborative design iteration. Learned how consistency in spacing, typography, and layout hierarchy improves usability and maintainability. Gained experience aligning design intent with implementation feasibility while ensuring accessibility compliance. Improved communication skills during collaborative feedback cycles.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2025-12-26",
+    "work_summary": "Designed a complete UI/UX solution for the Nican Resort Management System covering reservations, customer onboarding, billing workflows, housekeeping coordination, and administrative dashboards. Mapped operational resort workflows into structured digital processes ensuring clarity for staff users with varying technical proficiency. Developed wireframes followed by high-fidelity prototypes demonstrating booking lifecycle management and reporting visualization. Optimized dashboard layouts to present operational metrics without overwhelming users. Conducted usability simulations to identify friction points and refined navigation structures accordingly.",
+    "hours": 8,
+    "learnings": "Strengthened ability to convert real-world service operations into scalable digital interfaces. Learned modular interface design allowing feature expansion without redesign. Improved understanding of dashboard information hierarchy and workflow optimization principles.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+
+  {
+    "date": "2025-12-27",
+    "work_summary": "Performed a detailed usability and navigation audit of the Resort Management System focusing on cross-device compatibility. Evaluated booking flows, reporting access paths, and administrative navigation efficiency. Optimized user journeys by reducing redundant navigation steps and improving mobile responsiveness. Adjusted layout spacing and interaction zones for touchscreen usability. Conducted repeated interface walkthroughs simulating real operational scenarios.",
+    "hours": 8,
+    "learnings": "Improved knowledge of mobile-first UX principles and learned how navigation simplification significantly improves operational efficiency. Developed analytical skills for identifying usability bottlenecks within complex workflows.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2025-12-28",
+    "work_summary": "Conducted extensive research on localization practices for East African payment gateways. Analyzed regional financial interfaces focusing on currency formatting, payment confirmation workflows, and usability expectations. Documented localization challenges including cultural formatting differences and compliance considerations. Prepared structured recommendations for integrating regional payment standards into system design.",
+    "hours": 8,
+    "learnings": "Gained insight into localization-driven UX decisions and learned how regional financial conventions influence user trust. Improved research documentation skills supporting future implementation planning.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+
+  {
+    "date": "2025-12-29",
+    "work_summary": "Enhanced Resort Management System UI/UX to support Uganda Shilling localization across billing and reporting modules. Standardized currency representation and ensured formatting consistency across all financial screens. Validated invoice presentation clarity and adjusted layouts to align with accounting expectations.",
+    "hours": 8,
+    "learnings": "Learned practical financial interface localization techniques and understood how consistency in currency handling improves operational clarity and usability.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+
+  {
+    "date": "2025-12-30",
+    "work_summary": "Revised Resort Management System UI based on structured client feedback sessions. Improved visual hierarchy, reorganized dashboards, optimized module placement, and refined color application according to branding guidelines. Conducted iterative validation ensuring improvements preserved usability.",
+    "hours": 8,
+    "learnings": "Improved ability to transform subjective feedback into structured design improvements while maintaining consistency across complex systems.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2025-12-31",
+    "work_summary": "Conducted a comprehensive year-end design audit across all active Figma files covering Project Parent Luxuria and the Resort Management System. Reviewed component libraries, standardized naming conventions, synchronized typography scales, and unified color tokens to ensure consistency across multiple projects. Eliminated redundant components and reorganized file structures for maintainability. Updated design documentation to reflect the finalized component system and prepared structured versioning notes for future scalability. Performed cross-comparison checks to ensure shared modules maintained visual and structural integrity.",
+    "hours": 8,
+    "learnings": "Learned advanced design system maintenance strategies and the importance of systematic file organization in multi-project environments. Improved ability to maintain cross-project consistency while reducing redundancy. Gained understanding of long-term scalability considerations in design repositories.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2026-01-01",
+    "work_summary": "Prepared a detailed and structured Product Requirements Document for the Nican Resort Management System. Documented user personas, administrative workflows, role-based permissions, booking lifecycle management, financial reporting logic, and database entity relationships. Defined acceptance criteria for each feature module and outlined API interaction expectations. Incorporated security considerations including access control assumptions and data validation flows. Structured phased development milestones to align with backend and frontend implementation timelines.",
+    "hours": 8,
+    "learnings": "Enhanced technical documentation skills by defining measurable requirements and clear system boundaries. Improved ability to structure complex systems into modular deliverables. Gained deeper insight into database relationship planning and structured feature validation processes.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+
+  {
+    "date": "2026-01-02",
+    "work_summary": "Designed a structured UI/UX layout for a Payroll System webpage focusing on salary breakdown presentation, deduction transparency, tax calculations, and payment history visualization. Created dashboard layouts for administrators and employees ensuring clarity in financial data representation. Structured payslip views for readability while maintaining alignment with accounting expectations. Developed responsive layout variations to ensure accessibility across devices. Conducted usability simulations to validate clarity of financial terminology and data presentation.",
+    "hours": 8,
+    "learnings": "Learned best practices for designing data-dense financial interfaces that balance clarity with completeness. Improved ability to visualize structured financial information while maintaining accessibility and ease of interpretation for diverse user groups.",
+    "blockers": "None.",
+    "skills": ["Data visualization", "Layout Design"]
+  },
+
+  {
+    "date": "2026-01-03",
+    "work_summary": "Designed two structured webpages for BABA TV including a Business Overview Page and a Sales Tracker interface. Created layout variations accommodating analytics summaries, advertisement revenue tracking, and performance metrics visualization. Applied structured grid systems and optimized dashboard density to avoid information overload. Conducted iterative layout refinement to ensure alignment with media broadcasting workflows.",
+    "hours": 8,
+    "learnings": "Improved ability to design industry-specific dashboards and learned how information prioritization influences business decision-making efficiency. Strengthened modular layout structuring skills.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+
+  {
+    "date": "2026-01-04",
+    "work_summary": "Conducted structured research on modern broadcasting analytics dashboards and sales reporting systems. Analyzed how media organizations present performance metrics and structured reporting pipelines. Documented best practices for chart placement, metric grouping, and visual hierarchy optimization. Created comparison documentation aligning research findings with BABA TV requirements.",
+    "hours": 8,
+    "learnings": "Enhanced understanding of domain-specific data visualization strategies. Learned how structured information grouping improves executive-level dashboard usability.",
+    "blockers": "None.",
+    "skills": ["Data visualization", "Layout Design"]
+  },
+
+  {
+    "date": "2026-01-05",
+    "work_summary": "Refined BABA TV Business Page layout by improving typography hierarchy, spacing calibration, button visibility, and call-to-action placement. Conducted visual consistency reviews ensuring alignment with brand identity. Optimized section grouping to improve readability and reduce cognitive overload for end users reviewing analytics data.",
+    "hours": 8,
+    "learnings": "Strengthened understanding of micro-typography impact on readability and improved iterative design refinement capabilities.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2026-01-06",
+    "work_summary": "Drafted backend technical specifications for the Payroll System focusing on secure salary data handling, database relationship mapping, and access control flows. Defined encryption expectations for sensitive financial data and structured documentation for role-based permissions. Mapped data lifecycle stages including storage, retrieval, and reporting mechanisms.",
+    "hours": 8,
+    "learnings": "Gained exposure to backend security documentation and improved understanding of how structured database planning ensures confidentiality and integrity in payroll systems.",
+    "blockers": "None.",
+    "skills": ["Database design", "Data encryption"]
+  },
+
+  {
+    "date": "2026-01-07",
+    "work_summary": "Optimized Payroll System UI/UX to ensure compatibility with Microsoft Power Apps platform constraints. Simplified complex components into platform-compliant layouts while preserving usability. Conducted layout restructuring to accommodate low-code limitations without sacrificing clarity. Validated interaction flows for efficiency within constrained environment capabilities.",
+    "hours": 8,
+    "learnings": "Learned how platform limitations influence UI decisions and improved adaptability when translating advanced designs into simplified environments.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+
+  {
+    "date": "2026-01-08",
+    "work_summary": "Updated BABA TV UI/UX designs based on stakeholder feedback sessions. Refined module alignment, improved interaction flow between analytics components, and optimized color emphasis for key metrics. Conducted structured feedback validation ensuring requested adjustments aligned with usability principles.",
+    "hours": 8,
+    "learnings": "Improved ability to iterate efficiently based on feedback while preserving structural integrity of dashboard systems.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2026-01-09",
+    "work_summary": "Designed the UI/UX for a Payments Tracking Web Application emphasizing read-only audit workflows. Structured transaction listing views, filter mechanisms, and verification status indicators. Ensured clarity of financial logs and audit trail visibility. Conducted user journey simulation to validate efficiency in verification scenarios.",
+    "hours": 8,
+    "learnings": "Gained experience designing audit-focused systems where clarity and traceability are prioritized over interaction complexity.",
+    "blockers": "None.",
+    "skills": ["Data visualization", "Layout Design"]
+  },
+
+  {
+    "date": "2026-01-10",
+    "work_summary": "Enhanced Payroll System by introducing additional features including a structured settings module and expanded reporting sections. Integrated Uganda Shilling localization consistently across financial views. Conducted cross-screen validation to ensure no inconsistencies in currency formatting or reporting outputs.",
+    "hours": 8,
+    "learnings": "Learned how to extend existing systems without disrupting usability while maintaining localization and reporting accuracy.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-11",
+    "work_summary": "Performed an internal UX audit of the Payments Tracking Web Application with a focus on improving usability for audit and verification workflows. Carefully reviewed transaction navigation patterns, filtering mechanisms, and data visibility across verification screens. Evaluated user interaction efficiency by simulating auditor workflows involving large transaction datasets. Identified opportunities to reduce cognitive load by reorganizing data hierarchy and improving label clarity. Conducted accessibility checks including contrast validation and readability improvements to support prolonged usage scenarios. Documented improvement recommendations and prepared structured notes for future implementation refinement.",
+    "hours": 8,
+    "learnings": "Developed deeper understanding of usability auditing techniques and learned how structured evaluation helps identify inefficiencies not immediately visible during initial design phases. Improved analytical thinking when assessing workflow efficiency and gained insight into designing systems optimized for accuracy-driven professional environments.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+
+  {
+    "date": "2026-01-12",
+    "work_summary": "Designed the UI/UX architecture for an Event Materials Rental System focusing on inventory visibility, booking workflows, availability tracking, and administrative management features. Mapped operational processes such as equipment reservation, dispatch tracking, return validation, and billing confirmation into structured digital workflows. Created dashboard layouts enabling administrators to monitor inventory status efficiently. Developed modular booking interfaces supporting scalability for future inventory categories. Conducted interaction flow testing to ensure clarity in reservation lifecycle management.",
+    "hours": 8,
+    "learnings": "Improved understanding of inventory-based system design and learned how asset lifecycle workflows influence interface organization. Strengthened skills in mapping operational logistics into structured management dashboards.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+
+  {
+    "date": "2026-01-13",
+    "work_summary": "Integrated consistent iconography and visual indicators into the Event Materials Rental System to improve navigation clarity and usability. Designed visual cues representing equipment status such as availability, maintenance, booking confirmation, and return processing. Ensured icons aligned with overall design language while maintaining accessibility and recognition efficiency. Conducted iterative adjustments based on usability simulation ensuring users could quickly interpret system states without textual dependency.",
+    "hours": 8,
+    "learnings": "Learned how visual indicators significantly reduce cognitive effort and improve navigation efficiency. Gained experience in designing meaningful icon systems aligned with operational workflows.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2026-01-14",
+    "work_summary": "Designed a dedicated equipment damage and maintenance tracking module within the Event Materials Rental System. Structured workflows covering damage reporting, repair logging, inspection records, and maintenance history tracking. Developed layouts allowing administrators to monitor asset condition over time. Considered operational edge cases such as partial damage reporting and delayed maintenance updates. Validated interface clarity through simulated administrative usage scenarios.",
+    "hours": 8,
+    "learnings": "Gained understanding of designing for operational edge cases and learned how maintenance workflows integrate with inventory lifecycle systems. Improved capability to anticipate uncommon but critical user scenarios.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "Database design"]
+  },
+
+  {
+    "date": "2026-01-15",
+    "work_summary": "Collaborated with backend developers to map database schema requirements for the Broadway Printing Press ERP order management module. Discussed entity relationships including orders, production stages, clients, and delivery tracking. Ensured UI components aligned with database structures to prevent implementation mismatches. Participated in schema planning discussions and validated workflow feasibility through interface simulation.",
+    "hours": 8,
+    "learnings": "Improved cross-functional collaboration skills and learned how early coordination between UI design and database planning reduces future development rework.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+
+  {
+    "date": "2026-01-16",
+    "work_summary": "Created high-fidelity interactive prototypes for the Broadway Printing Press production dashboard simulating real-time workflow progression. Designed status transitions representing order intake, printing stages, quality checks, and dispatch readiness. Focused on clear visualization of production bottlenecks and operational workload distribution. Prepared annotated prototypes demonstrating expected interaction behavior for developers.",
+    "hours": 8,
+    "learnings": "Enhanced ability to design dynamic workflow visualizations and gained experience representing real-time operational states within management dashboards.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+
+  {
+    "date": "2026-01-17",
+    "work_summary": "Designed the complete UI/UX structure for the Broadway Printing Press ERP system including order intake modules, production tracking dashboards, job monitoring interfaces, and administrative reporting tools. Organized large feature sets into structured navigation hierarchies ensuring usability despite system complexity. Conducted internal validation ensuring workflow continuity across modules.",
+    "hours": 8,
+    "learnings": "Developed deeper understanding of ERP-scale system design and learned how to manage complexity through modular interface organization.",
+    "blockers": "None.",
+    "skills": ["Database design", "Layout Design"]
+  },
+
+  {
+    "date": "2026-01-18",
+    "work_summary": "Participated in a synchronization meeting for the Paul Property Management System to define tenant onboarding workflows and compliance requirements. Analyzed legal data requirements and structured onboarding interfaces supporting document verification and tenant information management. Drafted workflow diagrams aligning operational requirements with system capabilities.",
+    "hours": 8,
+    "learnings": "Learned how compliance requirements influence UX decisions and gained understanding of property management operational workflows.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+
+  {
+    "date": "2026-01-19",
+    "work_summary": "Refined tenant dashboard interfaces for the Property Management System by restructuring property listing visualization and improving data grouping strategies. Optimized layout clarity allowing property managers to quickly access tenant and lease information. Conducted iterative refinement cycles focusing on usability and readability.",
+    "hours": 8,
+    "learnings": "Improved ability to organize property-centric datasets and learned how structured layouts improve decision-making efficiency.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+
+  {
+    "date": "2026-01-20",
+    "work_summary": "Implemented coordinated branding updates across the Event Materials Rental System and Broadway Printing Press ERP. Integrated organizational logos, standardized color palettes, and ensured consistent visual identity across platforms. Conducted cross-project visual audits verifying branding consistency without compromising usability.",
+    "hours": 8,
+    "learnings": "Learned how branding integration must balance corporate identity with functional usability. Improved consistency management across multiple parallel projects.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-01-21",
+    "work_summary": "Designed the full UI/UX structure for the Paul Property Management System focusing on property listings, tenant lifecycle management, lease documentation tracking, and administrative dashboards. Began by mapping real-world property management workflows including onboarding, rent tracking, maintenance requests, and tenant communication logs. Structured role-based dashboards differentiating property managers and administrative staff access levels. Created modular layouts enabling future feature expansion such as analytics and financial summaries. Conducted simulated workflow testing to ensure smooth transitions between modules and minimized navigation redundancy.",
+    "hours": 8,
+    "learnings": "Improved understanding of role-based interface structuring and learned how property-centric workflows influence layout organization. Strengthened ability to design management systems balancing operational clarity with scalability.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+
+  {
+    "date": "2026-01-22",
+    "work_summary": "Updated UI/UX designs across multiple active projects including Paul Property Management System and Broadway Printing Press ERP based on newly received stakeholder requirements. Conducted structured impact analysis to understand how changes affected related modules. Refined navigation hierarchies, adjusted spacing systems, and improved module placement for enhanced usability. Validated updates through iterative internal walkthrough sessions ensuring no regression in previously optimized workflows.",
+    "hours": 8,
+    "learnings": "Developed strong prioritization skills when managing parallel project updates. Learned structured change management within design systems and improved ability to maintain cross-module consistency during rapid iterations.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2026-01-23",
+    "work_summary": "Designed a comprehensive Sales Tracker Application UI/UX for Pakwach FM Radio focusing on advertisement revenue tracking, sales performance monitoring, and reporting dashboards. Structured metric visualization layouts highlighting monthly performance, agent-based sales tracking, and revenue comparisons. Applied data grouping techniques to ensure executives could quickly interpret performance indicators. Created filter systems allowing dynamic date range analysis. Conducted simulated stakeholder review to validate clarity and decision-making efficiency.",
+    "hours": 8,
+    "learnings": "Gained experience designing industry-specific dashboards and learned how structured data visualization improves executive-level monitoring efficiency.",
+    "blockers": "None.",
+    "skills": ["Data visualization", "Layout Design"]
+  },
+
+  {
+    "date": "2026-01-24",
+    "work_summary": "Implemented UI revisions for the Pakwach FM Sales Tracker including development of an alternative simplified version excluding the agents module to streamline workflows. Conducted structural adjustments ensuring reduced feature sets maintained functional completeness. Improved dashboard readability by reorganizing metric hierarchy and optimizing whitespace usage. Validated simplified workflows through usability simulations.",
+    "hours": 8,
+    "learnings": "Learned how modular system design enables feature reduction without disrupting usability. Improved adaptability in simplifying complex systems while preserving functional intent.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2026-01-25",
+    "work_summary": "Finalized Pakwach FM Sales Tracker UI assets for developer handoff. Exported optimized SVG assets, prepared structured color palette documentation, and annotated layout behavior for frontend developers. Ensured alignment between design components and expected HTML implementation structure. Conducted final validation to confirm layout consistency and spacing alignment across modules.",
+    "hours": 8,
+    "learnings": "Improved developer handoff efficiency and learned how structured documentation reduces implementation friction. Strengthened understanding of translating visual design into developer-ready specifications.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+
+  {
+    "date": "2026-01-26",
+    "work_summary": "Prepared a comprehensive Product Requirements Document for the Pakwach FM Radio Sales Tracker Application. Documented business objectives, feature scope, reporting logic, user roles, database structure considerations, and validation rules for sales entries. Defined measurable acceptance criteria and outlined phased development milestones. Ensured alignment between UI components and backend data expectations.",
+    "hours": 8,
+    "learnings": "Strengthened technical documentation capabilities and improved clarity in defining measurable business logic for sales-oriented applications.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+
+  {
+    "date": "2026-01-27",
+    "work_summary": "Designed the UI/UX structure for a School Management System including administrative dashboards, student records management, academic tracking, and reporting modules. Mapped workflows covering enrollment, attendance tracking, performance grading, and fee management. Structured modular layouts supporting role-based access for teachers and administrators. Conducted usability simulation focusing on clarity of academic data representation.",
+    "hours": 8,
+    "learnings": "Gained understanding of education-focused management systems and learned how academic workflows influence dashboard structuring and data presentation.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
+  },
+
+  {
+    "date": "2026-01-28",
+    "work_summary": "Designed a new Resort Management System by adapting proven layout patterns from the Nican Resort project for a different operational context. Evaluated which components could be reused and which required restructuring. Optimized booking and reporting flows to align with new operational requirements. Conducted structural consistency validation to ensure design scalability.",
+    "hours": 8,
+    "learnings": "Learned how reusable design systems accelerate development and improved ability to adapt existing frameworks to new operational constraints.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+
+  {
+    "date": "2026-01-29",
+    "work_summary": "Prepared a detailed Product Requirements Document for the Broadway Printing Press ERP. Translated UI workflows into structured backend requirements, mapped database entity relationships, defined production lifecycle logic, and documented order validation constraints. Included performance assumptions and scalability considerations for production tracking modules.",
+    "hours": 8,
+    "learnings": "Improved ability to formalize ERP-scale system requirements and strengthened alignment between frontend design and backend data structures.",
+    "blockers": "None.",
+    "skills": ["Database design"]
+  },
+
+  {
+    "date": "2026-01-30",
+    "work_summary": "Designed a restaurant web application featuring a QR-code-based menu landing page enabling contactless ordering. Structured category grouping for menu items, pricing clarity, and order preview flows. Prepared supporting PRD documentation outlining database relationships for menu categories, orders, and payment tracking. Conducted iterative usability refinement focusing on mobile-first interaction patterns.",
+    "hours": 8,
+    "learnings": "Gained experience designing customer-facing hospitality applications and improved understanding of QR-driven interaction workflows.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "Database design"]
+  },
+
+  {
+    "date": "2026-01-31",
+    "work_summary": "Updated the restaurant application UI/UX based on revised requirements. Improved navigation clarity between menu categories, enhanced order confirmation feedback, and optimized spacing for readability. Conducted accessibility checks ensuring adequate contrast and mobile usability. Validated that updates maintained alignment with backend structural assumptions.",
+    "hours": 8,
+    "learnings": "Refined restaurant-specific UI workflows and learned how small interaction refinements significantly improve customer ordering experience.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "CSS"]
+  },
+  {
+    "date": "2026-02-01",
+    "work_summary": "Conducted an accessibility-focused evaluation of the Rashtrotthana Yoga classes webpage concept. Performed structured analysis of color contrast ratios, typography legibility, content spacing, and visual hierarchy alignment with accessibility best practices. Evaluated navigation clarity for diverse user age groups and ensured readability across different screen sizes. Refined layout spacing to reduce visual clutter while preserving aesthetic calmness appropriate for a wellness-focused platform. Conducted mobile responsiveness validation by simulating various viewport sizes. Documented improvement recommendations and adjusted layout hierarchy to emphasize class schedules, instructor profiles, and registration workflows.",
+    "hours": 8,
+    "learnings": "Developed deeper understanding of accessibility-conscious design and learned how subtle layout adjustments influence readability and engagement. Improved ability to balance minimalism with clarity in wellness-oriented interfaces. Strengthened knowledge of responsive layout validation and inclusive design considerations.",
+    "blockers": "None.",
+    "skills": ["Layout Design"]
+  },
+
+  {
+    "date": "2026-02-02",
+    "work_summary": "Designed a clean, minimal, and user-friendly UI/UX structure for the Rashtrotthana Yoga classes webpage focusing on schedule visibility, instructor introduction sections, enrollment forms, and class categorization. Structured content hierarchy emphasizing clarity and ease of registration. Applied structured grid systems ensuring alignment consistency and predictable navigation flow. Developed responsive layout variants optimized for both desktop and mobile users. Conducted internal usability walkthrough sessions to validate that new users could easily identify class timings, pricing information, and booking options without confusion. Prepared structured documentation aligning layout sections with potential HTML implementation structure.",
+    "hours": 8,
+    "learnings": "Learned how to design calm, minimal interfaces while maintaining clear functional pathways. Improved ability to create responsive wellness-focused layouts that prioritize clarity and engagement. Strengthened structural thinking when mapping UI design directly to frontend implementation logic.",
+    "blockers": "None.",
+    "skills": ["Layout Design", "HTML"]
   }
 ]
