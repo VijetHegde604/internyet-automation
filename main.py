@@ -1,22 +1,40 @@
 import argparse
 import json
 import os
+import sys
 import time
+from datetime import datetime
 
 import requests
 from dotenv import load_dotenv
+from colorama import Fore, Style, init
+
+init(autoreset=True)
 
 # ─────────────────────────────────────────────
-# ARGUMENTS
+# CLI ARGUMENTS
 # ─────────────────────────────────────────────
-parser = argparse.ArgumentParser(description="Internship diary submission tool")
+parser = argparse.ArgumentParser(
+    description="✨ InternYet Internship Diary Tool"
+)
+
 parser.add_argument(
     "--dry-run",
     action="store_true",
-    help="Print payloads without submitting to the server",
+    help="Validate and print payloads without submitting"
 )
+
+parser.add_argument(
+    "--fetch-only",
+    action="store_true",
+    help="Only fetch and backup existing portal entries"
+)
+
 args = parser.parse_args()
 DRY_RUN = args.dry_run
+FETCH_ONLY = args.fetch_only
+
+START_TIME = time.time()
 
 # ─────────────────────────────────────────────
 # ENV SETUP
@@ -26,11 +44,12 @@ load_dotenv()
 EMAIL = os.getenv("INTERNYET_EMAIL")
 PASSWORD = os.getenv("INTERNYET_PASSWORD")
 
-if not DRY_RUN and (not EMAIL or not PASSWORD):
-    raise RuntimeError("❌ Missing INTERNYET_EMAIL or INTERNYET_PASSWORD in .env")
+if not DRY_RUN and not FETCH_ONLY:
+    if not EMAIL or not PASSWORD:
+        raise RuntimeError("❌ Missing INTERNYET_EMAIL or INTERNYET_PASSWORD in .env")
 
 # ─────────────────────────────────────────────
-# SESSION
+# SESSION SETUP
 # ─────────────────────────────────────────────
 session = requests.Session()
 
@@ -39,15 +58,22 @@ HEADERS = {
     "Accept": "application/json",
     "Origin": "https://vtu.internyet.in",
     "Referer": "https://vtu.internyet.in/",
-    "User-Agent": (
-        "Mozilla/5.0 (X11; Linux x86_64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/120.0.0.0 Safari/537.36"
-    ),
 }
 
 # ─────────────────────────────────────────────
-# SKILL LOOKUP
+# CONSTANTS
+# ─────────────────────────────────────────────
+LOGIN_URL = "https://vtuapi.internyet.in/api/v1/auth/login"
+FETCH_URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries"
+SUBMIT_URL = FETCH_URL + "/store"
+
+INTERNSHIP_ID = 702
+REQUEST_DELAY = 5
+MAX_RETRIES = 3
+TIMEOUT = 15
+
+# ─────────────────────────────────────────────
+# FULL SKILL LOOKUP (KEEP COMPLETE)
 # ─────────────────────────────────────────────
 SKILL_LOOKUP = {
     "3D PRINTING CONCEPTS, DESIGN AND PRINTING": 85,
@@ -139,51 +165,68 @@ SKILL_LOOKUP = {
 }
 
 # ─────────────────────────────────────────────
+# UI HELPERS
+# ─────────────────────────────────────────────
+def banner():
+    print(Fore.CYAN + Style.BRIGHT + "\n🚀 InternYet Diary Tool\n")
+
+
+def success(msg):
+    print(Fore.GREEN + f"✅ {msg}")
+
+
+def warn(msg):
+    print(Fore.YELLOW + f"⚠ {msg}")
+
+
+def error(msg):
+    print(Fore.RED + f"❌ {msg}")
+
+
+# ─────────────────────────────────────────────
+# BACKUP FUNCTION
+# ─────────────────────────────────────────────
+def save_existing_entries(entries):
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"existing_entries_{ts}.json"
+
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(entries, f, indent=2, ensure_ascii=False)
+
+    success(f"Backup saved → {filename}")
+
+
+# ─────────────────────────────────────────────
 # LOGIN
 # ─────────────────────────────────────────────
-LOGIN_URL = "https://vtuapi.internyet.in/api/v1/auth/login"
+def login():
+    if DRY_RUN:
+        warn("Dry-run mode: login skipped")
+        return
 
-if DRY_RUN:
-    print("🧪 DRY-RUN MODE: Login skipped")
-else:
+    print(Fore.YELLOW + "⏳ Logging in...")
+
     r = session.post(
         LOGIN_URL,
         json={"email": EMAIL, "password": PASSWORD},
         headers=HEADERS,
-        timeout=15,
+        timeout=TIMEOUT,
     )
 
     if r.status_code != 200:
-        raise RuntimeError(f"❌ Login failed: {r.status_code} → {r.text}")
+        raise RuntimeError(f"Login failed: {r.status_code} → {r.text}")
 
-    print("✅ Logged in successfully")
-
-# ─────────────────────────────────────────────
-# LOAD ENTRIES
-# ─────────────────────────────────────────────
-with open("entries.json", "r", encoding="utf-8") as f:
-    ENTRIES = json.load(f)
-
-print(f"📄 Loaded {len(ENTRIES)} entries")
-
-# ─────────────────────────────────────────────
-# CONSTANTS
-# ─────────────────────────────────────────────
-SUBMIT_URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries/store"
-FETCH_URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries"
-INTERNSHIP_ID = 702
-
-REQUEST_DELAY = 5
-MAX_RETRIES = 3
-TIMEOUT = 15
+    success("Logged in successfully")
 
 
 # ─────────────────────────────────────────────
-# FETCH EXISTING ENTRIES (ROBUST)
+# FETCH EXISTING ENTRIES
 # ─────────────────────────────────────────────
 def fetch_existing_entries():
-    all_entries = []
+    print(Fore.YELLOW + "⏳ Fetching existing portal entries...")
+
     page = 1
+    all_entries = []
 
     while True:
         r = session.get(
@@ -194,113 +237,128 @@ def fetch_existing_entries():
         )
 
         if r.status_code != 200:
-            raise RuntimeError(
-                f"Failed to fetch entries (page {page}): {r.status_code}"
-            )
+            raise RuntimeError("Failed to fetch entries")
 
-        payload = r.json()
-
-        # Laravel-style pagination
-        data_block = payload.get("data", {})
-
-        if not isinstance(data_block, dict):
-            break
-
-        page_entries = data_block.get("data", [])
+        data_block = r.json().get("data", {})
+        entries = data_block.get("data", [])
         last_page = data_block.get("last_page", page)
 
-        all_entries.extend(page_entries)
+        all_entries.extend(entries)
 
         if page >= last_page:
             break
 
         page += 1
-        time.sleep(0.5)  # polite delay
+        time.sleep(0.5)
 
+    success(f"Fetched {len(all_entries)} existing entries")
     return all_entries
 
 
-DATE_TO_ID = {}
-
-if not DRY_RUN:
-    existing_entries = fetch_existing_entries()
-    DATE_TO_ID = {
-        e["date"]: e["id"]
-        for e in existing_entries
-        if isinstance(e, dict) and "date" in e and "id" in e
-    }
-
-print(f"📚 Existing entries found: {len(DATE_TO_ID)}")
-
-
 # ─────────────────────────────────────────────
-# CREATE / UPDATE FUNCTION
+# SUBMIT / UPDATE ENTRY
 # ─────────────────────────────────────────────
-def submit_or_update_entry(entry):
+def submit_or_update(entry, index, total, date_to_id):
+
+    for skill in entry["skills"]:
+        if skill not in SKILL_LOOKUP:
+            raise ValueError(f"Unknown skill: {skill}")
+
     payload = {
         "internship_id": INTERNSHIP_ID,
         "date": entry["date"],
         "description": entry["work_summary"],
         "hours": entry["hours"],
-        "links": "",
         "blockers": entry["blockers"],
         "learnings": entry["learnings"],
+        "links": "",
         "mood_slider": 5,
         "skill_ids": [SKILL_LOOKUP[s] for s in entry["skills"]],
     }
 
-    if entry["date"] in DATE_TO_ID:
-        payload["id"] = DATE_TO_ID[entry["date"]]
+    action = "CREATE"
+
+    if entry["date"] in date_to_id:
+        payload["id"] = date_to_id[entry["date"]]
         action = "UPDATE"
-    else:
-        action = "CREATE"
+
+    prefix = f"[{index}/{total}]"
 
     if DRY_RUN:
-        print(f"\n🧪 DRY-RUN {action}")
-        print(payload)
-        return True, action
+        print(Fore.BLUE + f"{prefix} 🧪 {action} {entry['date']}")
+        return True
 
-    for attempt in range(1, MAX_RETRIES + 1):
-        try:
-            r = session.post(
-                SUBMIT_URL,
-                json=payload,
-                headers=HEADERS,
-                timeout=TIMEOUT,
-            )
+    for attempt in range(MAX_RETRIES):
+        r = session.post(
+            SUBMIT_URL,
+            json=payload,
+            headers=HEADERS,
+            timeout=TIMEOUT,
+        )
 
-            if r.status_code in (200, 201):
-                return True, action
+        if r.status_code in (200, 201):
+            success(f"{prefix} {entry['date']} → {action}")
+            return True
 
-            print(f"⚠ Attempt {attempt}: {r.status_code}")
-            time.sleep(2 * attempt)
+        warn(f"{prefix} retry {attempt+1}")
+        time.sleep(2)
 
-        except Exception as e:
-            print(f"❌ Attempt {attempt} failed: {e}")
-            time.sleep(2 * attempt)
-
-    return False, "Failed after retries"
+    error(f"{prefix} Failed {entry['date']}")
+    return False
 
 
 # ─────────────────────────────────────────────
-# PROCESS ALL ENTRIES
+# MAIN EXECUTION
 # ─────────────────────────────────────────────
-success = 0
-failure = 0
+def main():
+    banner()
+    login()
 
-for entry in ENTRIES:
-    ok, result = submit_or_update_entry(entry)
+    if FETCH_ONLY:
+        existing = fetch_existing_entries()
+        save_existing_entries(existing)
+        print(Fore.CYAN + "\n📦 Fetch-only mode complete.\n")
+        sys.exit(0)
 
-    if ok:
-        print(f"✅ {entry['date']} → {result}")
-        success += 1
-    else:
-        print(f"❌ {entry['date']} → {result}")
-        failure += 1
+    with open("entries.json", encoding="utf-8") as f:
+        ENTRIES = json.load(f)
+
+    print(Fore.CYAN + f"📄 Loaded {len(ENTRIES)} entries")
+
+    date_to_id = {}
 
     if not DRY_RUN:
-        time.sleep(REQUEST_DELAY)
+        existing = fetch_existing_entries()
+        save_existing_entries(existing)
+        date_to_id = {e["date"]: e["id"] for e in existing}
 
-print("\n📊 SUMMARY")
-print("Success:", success)
-print("Failed :", failure)
+    success_count = 0
+    fail_count = 0
+    total = len(ENTRIES)
+
+    print(Fore.MAGENTA + "\n📤 Processing Entries\n")
+
+    for i, entry in enumerate(ENTRIES, start=1):
+        ok = submit_or_update(entry, i, total, date_to_id)
+
+        if ok:
+            success_count += 1
+        else:
+            fail_count += 1
+
+        if not DRY_RUN:
+            time.sleep(REQUEST_DELAY)
+
+    elapsed = round(time.time() - START_TIME, 2)
+
+    print(
+        Fore.CYAN
+        + "\n📊 SUMMARY\n"
+        + f"Success : {success_count}\n"
+        + f"Failed  : {fail_count}\n"
+        + f"Time    : {elapsed}s\n"
+    )
+
+
+if __name__ == "__main__":
+    main()
