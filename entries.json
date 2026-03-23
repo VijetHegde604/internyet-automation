@@ -1,50 +1,50 @@
 [
   {
-    "date": "2026-03-10",
-    "work_summary": "Started working on improving the deployment workflow by analyzing the existing build and deployment process for the backend application. Evaluated how Docker containers could be used to standardize the runtime environment across development and staging systems. Created an initial Docker configuration to package the backend service along with its dependencies. Tested container builds locally and verified that the application could start correctly within the container environment while maintaining database connectivity and API functionality.",
+    "date": "2026-03-18",
+    "work_summary": "Focused on setting up and understanding Nix-based dependency management for the project. Explored how Nix expressions define reproducible environments and worked on configuring development dependencies required for the backend. Added necessary packages into the Nix configuration, tested builds, and ensured the environment could be consistently reproduced across systems. Also compared traditional package management approaches with Nix to understand its advantages in isolation and reproducibility.",
     "hours": 8,
-    "learnings": "Developed a better understanding of containerization and how Docker helps create consistent runtime environments across systems. Learned how packaging dependencies inside containers eliminates configuration drift between development and deployment environments.",
-    "blockers": "None.",
-    "skills": ["Docker", "DevOps", "Python", "Git"]
+    "learnings": "Developed a strong understanding of declarative dependency management, reproducible environments, and how Nix improves consistency in development workflows.",
+    "blockers": "Faced initial challenges understanding Nix syntax and debugging configuration errors.",
+    "skills": ["DevOps", "Docker", "Git"]
   },
   {
-    "date": "2026-03-11",
-    "work_summary": "Worked on setting up a basic continuous integration pipeline to automate testing and container builds whenever code changes are pushed to the repository. Configured automated build steps to install dependencies, run backend tests, and generate Docker images. Ensured that pipeline stages fail safely when errors occur so that broken builds do not proceed to deployment stages. Conducted multiple test commits to validate that the CI process correctly detects issues and builds containers reliably.",
+    "date": "2026-03-19",
+    "work_summary": "Continued refining the Nix setup by resolving dependency conflicts and ensuring compatibility between required packages. Analyzed the backend architecture in detail, including models, serializers, and database structure, in preparation for implementing new revenue and commission features. Reviewed how existing data flows through the system and identified areas where modifications would be required. Performed testing to validate that the environment was stable after dependency adjustments.",
     "hours": 8,
-    "learnings": "Learned the importance of continuous integration in maintaining code quality and preventing unstable builds from reaching deployment environments. Improved understanding of automated build pipelines and how they integrate with containerized applications.",
-    "blockers": "None.",
-    "skills": ["DevOps", "Docker", "Git", "Python"]
+    "learnings": "Improved understanding of backend architecture, dependency resolution, and maintaining compatibility across different system components.",
+    "blockers": "Encountered version mismatches and dependency conflicts which required troubleshooting and testing.",
+    "skills": ["Python", "PostgreSQL", "Database design"]
   },
   {
-    "date": "2026-03-12",
-    "work_summary": "Integrated object storage support using AWS S3 for handling static assets and uploaded documents within the application. Configured secure access policies and implemented backend logic to upload and retrieve files from the storage bucket. Updated the application configuration so that media files are stored externally instead of on the application server. Conducted tests to ensure correct upload handling and verified that stored files could be retrieved securely through the backend API.",
+    "date": "2026-03-20",
+    "work_summary": "Worked on implementing new revenue and commission models in the backend. Designed and added new database fields to support different commission structures and updated corresponding serializers and business logic. Ensured that calculations were accurate and aligned with requirements by writing and running test cases. Also verified database migrations and validated that new data structures integrated correctly with existing ones without breaking functionality.",
     "hours": 8,
-    "learnings": "Gained practical exposure to cloud object storage and learned how external storage services such as AWS S3 improve scalability and reliability for file management in web applications.",
-    "blockers": "None.",
-    "skills": ["AWS", "Python", "DevOps", "Network architecture"]
+    "learnings": "Learned how to design scalable business logic, implement financial calculations, and maintain data integrity within a relational database system.",
+    "blockers": "Ensuring correctness of commission calculations and avoiding data inconsistencies during integration.",
+    "skills": ["Python", "SQL", "Database design"]
   },
   {
-    "date": "2026-03-13",
-    "work_summary": "Enhanced the deployment pipeline by connecting the continuous integration process with container deployment workflows. Configured automated steps that push newly built Docker images to the deployment environment after successful builds. Ensured environment variables and secrets were properly managed during deployment to avoid exposing sensitive information. Performed test deployments to confirm that application updates could be released with minimal manual intervention.",
+    "date": "2026-03-21",
+    "work_summary": "Worked on integrating frontend components with backend APIs. Connected UI elements to newly created API endpoints and ensured proper data exchange between client and server. Tested API responses using frontend workflows and debugged issues related to incorrect data formats and missing fields. Coordinated changes between frontend and backend to maintain consistency and improve usability.",
     "hours": 8,
-    "learnings": "Improved understanding of continuous delivery concepts and learned how automated deployment pipelines reduce operational overhead and improve release reliability.",
-    "blockers": "None.",
-    "skills": ["DevOps", "Docker", "Git", "Python"]
+    "learnings": "Gained hands-on experience in full-stack development, particularly in API integration and handling asynchronous data flow.",
+    "blockers": "Faced issues with mismatched data structures and response handling between frontend and backend.",
+    "skills": ["JavaScript", "React", "HTML"]
   },
   {
-    "date": "2026-03-14",
-    "work_summary": "Focused on improving monitoring and reliability of the deployment setup. Reviewed container logs and implemented structured logging to make debugging easier during deployment failures. Tested rollback procedures by deploying previous application versions to ensure system recovery could be performed safely if new releases introduced issues. Updated documentation describing the deployment pipeline and operational procedures.",
+    "date": "2026-03-22",
+    "work_summary": "Enhanced API reliability by improving error handling and validating edge cases in both frontend and backend. Conducted thorough end-to-end testing of revenue and commission workflows to ensure accurate data processing. Identified and fixed minor bugs affecting UI rendering and data display. Improved user interface elements to clearly present financial data and ensured smooth interaction with backend services.",
     "hours": 8,
-    "learnings": "Learned how operational observability and structured logging play an important role in maintaining production systems. Gained experience planning safe deployment rollback strategies.",
-    "blockers": "None.",
-    "skills": ["DevOps", "Docker", "Python", "Git"]
+    "learnings": "Understood the importance of comprehensive testing, proper error handling, and delivering a seamless user experience in full-stack applications.",
+    "blockers": "Handling unexpected edge cases in API responses required additional validation logic.",
+    "skills": ["JavaScript", "React", "CSS"]
   },
   {
-    "date": "2026-03-15",
-    "work_summary": "Conducted a final review of the CI/CD pipeline and deployment workflow to ensure stability and repeatability. Verified that Docker builds, automated tests, and deployment stages function correctly together. Performed end-to-end deployment testing to confirm that updates propagate successfully from code commit to running application instance. Documented the finalized workflow for future team members and ensured configuration settings were clearly organized.",
+    "date": "2026-03-23",
+    "work_summary": "Performed a comprehensive review of all implemented features. Cleaned up the codebase by removing redundant code, improving structure, and ensuring adherence to best practices. Documented the newly added revenue and commission systems, including their design and usage. Verified system stability through testing and ensured that both frontend and backend components were functioning correctly after integration.",
     "hours": 8,
-    "learnings": "Developed a comprehensive understanding of the complete CI/CD lifecycle from source code changes to deployed application. Learned how automated pipelines, containerization, and cloud services combine to create reliable deployment processes.",
+    "learnings": "Improved skills in code optimization, documentation, and maintaining clean and scalable software architecture.",
     "blockers": "None.",
-    "skills": ["DevOps", "Docker", "Git", "AWS"]
+    "skills": ["Git", "Python", "DevOps"]
   }
 ]
