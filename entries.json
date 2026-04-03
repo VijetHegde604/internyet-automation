@@ -1,50 +1,90 @@
 [
   {
-    "date": "2026-03-18",
-    "work_summary": "Focused on setting up and understanding Nix-based dependency management for the project. Explored how Nix expressions define reproducible environments and worked on configuring development dependencies required for the backend. Added necessary packages into the Nix configuration, tested builds, and ensured the environment could be consistently reproduced across systems. Also compared traditional package management approaches with Nix to understand its advantages in isolation and reproducibility.",
+    "date": "2026-03-24",
+    "work_summary": "Spent the day setting up the foundational backend architecture for the senior wellness platform using Django. Carefully structured the project into modular apps to ensure scalability and maintainability. Designed and implemented initial database schemas in PostgreSQL for core entities such as users, health metrics, wellness activities, and caregiver relationships. Paid special attention to normalization, indexing strategies, and relational integrity. Configured environment variables and settings management to support multiple environments (development and testing). Also initialized the Git repository structure and ensured proper version control practices were followed.",
     "hours": 8,
-    "learnings": "Developed a strong understanding of declarative dependency management, reproducible environments, and how Nix improves consistency in development workflows.",
-    "blockers": "Faced initial challenges understanding Nix syntax and debugging configuration errors.",
-    "skills": ["DevOps", "Docker", "Git"]
+    "learnings": "Gained strong insight into designing scalable backend systems using Django and PostgreSQL, along with best practices in structuring applications for long-term maintainability.",
+    "blockers": "Encountered challenges with defining optimal relationships between models and resolving migration dependency issues.",
+    "skills": ["Python", "PostgreSQL", "Data modeling", "SQL", "Git"]
   },
   {
-    "date": "2026-03-19",
-    "work_summary": "Continued refining the Nix setup by resolving dependency conflicts and ensuring compatibility between required packages. Analyzed the backend architecture in detail, including models, serializers, and database structure, in preparation for implementing new revenue and commission features. Reviewed how existing data flows through the system and identified areas where modifications would be required. Performed testing to validate that the environment was stable after dependency adjustments.",
+    "date": "2026-03-25",
+    "work_summary": "Focused on implementing a secure authentication and authorization system. Developed user registration and login APIs with proper validation and error handling. Integrated JWT-based authentication to enable stateless communication between the backend and React frontend. Implemented role-based access control to differentiate between users such as seniors, caregivers, and administrators. Added middleware to protect sensitive endpoints and enforce access restrictions. Conducted extensive testing of authentication flows, including token expiration, refresh handling, and invalid credential scenarios.",
     "hours": 8,
-    "learnings": "Improved understanding of backend architecture, dependency resolution, and maintaining compatibility across different system components.",
-    "blockers": "Encountered version mismatches and dependency conflicts which required troubleshooting and testing.",
-    "skills": ["Python", "PostgreSQL", "Database design"]
+    "learnings": "Deepened understanding of secure authentication mechanisms, token lifecycle management, and designing robust access control systems.",
+    "blockers": "Faced issues handling token expiration and refresh logic consistently across protected endpoints.",
+    "skills": ["Python", "Data encryption", "DevOps", "Git"]
   },
   {
-    "date": "2026-03-20",
-    "work_summary": "Worked on implementing new revenue and commission models in the backend. Designed and added new database fields to support different commission structures and updated corresponding serializers and business logic. Ensured that calculations were accurate and aligned with requirements by writing and running test cases. Also verified database migrations and validated that new data structures integrated correctly with existing ones without breaking functionality.",
+    "date": "2026-03-26",
+    "work_summary": "Worked on developing RESTful API endpoints for key platform functionalities such as health data input, daily activity tracking, and wellness reporting. Implemented serializers and validation layers to ensure data consistency and prevent invalid inputs. Designed endpoints following REST conventions with proper HTTP methods and status codes. Coordinated closely with frontend requirements to ensure API responses were structured efficiently for React components. Performed extensive API testing and debugging to handle edge cases and ensure reliability.",
     "hours": 8,
-    "learnings": "Learned how to design scalable business logic, implement financial calculations, and maintain data integrity within a relational database system.",
-    "blockers": "Ensuring correctness of commission calculations and avoiding data inconsistencies during integration.",
-    "skills": ["Python", "SQL", "Database design"]
+    "learnings": "Improved skills in designing clean and efficient APIs and learned how backend structure directly impacts frontend performance and usability.",
+    "blockers": "Encountered issues with complex validation logic and handling nested data structures in serializers.",
+    "skills": ["Python", "React", "SQL", "Git"]
   },
   {
-    "date": "2026-03-21",
-    "work_summary": "Worked on integrating frontend components with backend APIs. Connected UI elements to newly created API endpoints and ensured proper data exchange between client and server. Tested API responses using frontend workflows and debugged issues related to incorrect data formats and missing fields. Coordinated changes between frontend and backend to maintain consistency and improve usability.",
+    "date": "2026-03-27",
+    "work_summary": "Dedicated the day to optimizing database performance and improving query efficiency. Analyzed slow queries generated by Django ORM and refactored them for better performance. Implemented indexing on frequently queried fields and optimized joins to reduce query execution time. Introduced pagination and filtering mechanisms for APIs dealing with large datasets. Evaluated trade-offs between ORM convenience and raw SQL optimization for performance-critical operations.",
     "hours": 8,
-    "learnings": "Gained hands-on experience in full-stack development, particularly in API integration and handling asynchronous data flow.",
-    "blockers": "Faced issues with mismatched data structures and response handling between frontend and backend.",
-    "skills": ["JavaScript", "React", "HTML"]
+    "learnings": "Gained practical knowledge in database optimization, indexing strategies, and performance tuning in PostgreSQL.",
+    "blockers": "Difficulty in identifying inefficient ORM-generated queries and translating them into optimized queries.",
+    "skills": ["PostgreSQL", "Indexing", "SQL", "Data modeling"]
   },
   {
-    "date": "2026-03-22",
-    "work_summary": "Enhanced API reliability by improving error handling and validating edge cases in both frontend and backend. Conducted thorough end-to-end testing of revenue and commission workflows to ensure accurate data processing. Identified and fixed minor bugs affecting UI rendering and data display. Improved user interface elements to clearly present financial data and ensured smooth interaction with backend services.",
+    "date": "2026-03-28",
+    "work_summary": "Worked on containerizing the backend application using Docker to ensure consistent development and deployment environments. Created Dockerfiles for the Django application and configured docker-compose to manage multi-container setups including PostgreSQL. Set up environment variables, volumes, and networking between containers. Tested the containerized application thoroughly and resolved issues related to service communication and persistent data storage.",
     "hours": 8,
-    "learnings": "Understood the importance of comprehensive testing, proper error handling, and delivering a seamless user experience in full-stack applications.",
-    "blockers": "Handling unexpected edge cases in API responses required additional validation logic.",
-    "skills": ["JavaScript", "React", "CSS"]
+    "learnings": "Developed hands-on experience with containerization and understood how Docker improves reproducibility and deployment consistency.",
+    "blockers": "Encountered networking issues between containers and challenges with volume persistence.",
+    "skills": ["Docker", "DevOps", "PostgreSQL", "Git"]
   },
   {
-    "date": "2026-03-23",
-    "work_summary": "Performed a comprehensive review of all implemented features. Cleaned up the codebase by removing redundant code, improving structure, and ensuring adherence to best practices. Documented the newly added revenue and commission systems, including their design and usage. Verified system stability through testing and ensured that both frontend and backend components were functioning correctly after integration.",
+    "date": "2026-03-29",
+    "work_summary": "Integrated backend APIs with the React frontend. Worked on ensuring smooth communication between frontend and backend by aligning API response formats with frontend expectations. Debugged issues related to data fetching, state management, and asynchronous operations. Improved error handling mechanisms to provide better feedback to users. Ensured consistency in API contracts and minimized redundant data transfer.",
     "hours": 8,
-    "learnings": "Improved skills in code optimization, documentation, and maintaining clean and scalable software architecture.",
-    "blockers": "None.",
-    "skills": ["Git", "Python", "DevOps"]
+    "learnings": "Understood real-world challenges in frontend-backend integration and improved ability to design APIs that are frontend-friendly.",
+    "blockers": "Faced mismatches between API responses and frontend requirements, requiring iterative refinements.",
+    "skills": ["React", "Python", "Git", "Data modeling"]
+  },
+  {
+    "date": "2026-03-30",
+    "work_summary": "Implemented asynchronous processing for handling time-consuming operations such as report generation and notifications. Designed backend workflows to offload heavy tasks and maintain system responsiveness. Explored task queue concepts and integrated them into the application architecture. Ensured that background processing did not affect the performance of primary API endpoints.",
+    "hours": 8,
+    "learnings": "Learned how to design scalable backend systems using asynchronous processing and task management.",
+    "blockers": "Initial setup and debugging of asynchronous workflows required additional effort.",
+    "skills": ["Python", "DevOps", "Docker"]
+  },
+  {
+    "date": "2026-03-31",
+    "work_summary": "Focused on implementing logging and monitoring mechanisms within the backend. Added structured logging to capture meaningful runtime information and errors. Improved debugging workflows by analyzing logs and tracing issues across different components. Ensured better observability of system behavior during development and testing phases.",
+    "hours": 8,
+    "learnings": "Enhanced debugging skills and gained understanding of backend observability and monitoring practices.",
+    "blockers": "Managing large volumes of logs and identifying relevant information was initially challenging.",
+    "skills": ["Python", "DevOps", "Git"]
+  },
+  {
+    "date": "2026-04-01",
+    "work_summary": "Worked on strengthening backend security by implementing input validation, sanitization, and protection against common vulnerabilities. Reviewed API endpoints for potential risks such as unauthorized access and data leakage. Improved access control mechanisms and ensured sensitive data handling followed best practices. Conducted basic testing to validate security improvements.",
+    "hours": 8,
+    "learnings": "Gained awareness of backend security considerations and practical approaches to mitigating vulnerabilities.",
+    "blockers": "Identifying all possible edge-case vulnerabilities required additional research and testing.",
+    "skills": ["Data encryption", "Python", "DevOps"]
+  },
+  {
+    "date": "2026-04-02",
+    "work_summary": "Refactored existing backend codebase to improve readability, maintainability, and modularity. Applied clean code principles and reorganized code into reusable components. Reduced duplication and improved consistency across modules. Added comments and documentation to make the codebase easier to understand for future development.",
+    "hours": 8,
+    "learnings": "Strengthened ability to write clean, maintainable, and scalable code in a collaborative environment.",
+    "blockers": "Ensuring that refactoring did not introduce regressions required careful testing.",
+    "skills": ["Python", "Git", "Data modeling"]
+  },
+  {
+    "date": "2026-04-03",
+    "work_summary": "Conducted comprehensive end-to-end testing of the system, covering workflows such as user onboarding, health data tracking, and dashboard updates. Identified and fixed bugs across both backend and integration layers. Validated API performance and ensured consistency in responses. Prepared the backend for further feature expansion and deployment readiness.",
+    "hours": 8,
+    "learnings": "Improved understanding of integration testing and debugging complex multi-component systems.",
+    "blockers": "Coordinating multiple components and identifying root causes of integration issues required additional effort.",
+    "skills": ["Python", "React", "SQL", "Git"]
   }
 ]
