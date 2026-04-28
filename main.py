@@ -30,9 +30,30 @@ parser.add_argument(
     help="Only fetch and backup existing portal entries"
 )
 
+parser.add_argument(
+    "--internship-id",
+    type=int,
+    help="Internship ID to use for diary submission"
+)
+
+parser.add_argument(
+    "--discover-internships",
+    action="store_true",
+    help="List available internships from your account and exit"
+)
+
+parser.add_argument(
+    "--select-internship",
+    action="store_true",
+    help="Interactively select internship from discovered internships"
+)
+
 args = parser.parse_args()
 DRY_RUN = args.dry_run
 FETCH_ONLY = args.fetch_only
+CLI_INTERNSHIP_ID = args.internship_id
+DISCOVER_INTERNSHIPS = args.discover_internships
+SELECT_INTERNSHIP = args.select_internship
 
 START_TIME = time.time()
 
@@ -43,6 +64,7 @@ load_dotenv()
 
 EMAIL = os.getenv("INTERNYET_EMAIL")
 PASSWORD = os.getenv("INTERNYET_PASSWORD")
+ENV_INTERNSHIP_ID = os.getenv("INTERNYET_INTERNSHIP_ID")
 
 if not DRY_RUN and not FETCH_ONLY:
     if not EMAIL or not PASSWORD:
@@ -66,8 +88,7 @@ HEADERS = {
 LOGIN_URL = "https://vtuapi.internyet.in/api/v1/auth/login"
 FETCH_URL = "https://vtuapi.internyet.in/api/v1/student/internship-diaries"
 SUBMIT_URL = FETCH_URL + "/store"
-
-INTERNSHIP_ID = 702
+INTERNSHIP_APPLYS_URL = "https://vtuapi.internyet.in/api/v1/student/internship-applys"
 REQUEST_DELAY = 5
 MAX_RETRIES = 3
 TIMEOUT = 15
@@ -256,16 +277,126 @@ def fetch_existing_entries():
 
 
 # ─────────────────────────────────────────────
+# FETCH INTERNSHIPS
+# ─────────────────────────────────────────────
+def fetch_internships():
+    print(Fore.YELLOW + "⏳ Discovering internships...")
+
+    page = 1
+    internships = []
+
+    while True:
+        r = session.get(
+            INTERNSHIP_APPLYS_URL,
+            headers=HEADERS,
+            params={"page": page},
+            timeout=TIMEOUT,
+        )
+
+        if r.status_code != 200:
+            raise RuntimeError("Failed to fetch internships")
+
+        data_block = r.json().get("data", {})
+        apply_records = data_block.get("data", [])
+        last_page = data_block.get("last_page", page)
+
+        for apply_record in apply_records:
+            internship_id = apply_record.get("internship_id")
+            details = apply_record.get("internship_details") or {}
+            internship_name = details.get("name", "Unknown internship")
+
+            if internship_id is not None:
+                internships.append({"id": internship_id, "name": internship_name})
+
+        if page >= last_page:
+            break
+
+        page += 1
+        time.sleep(0.5)
+
+    unique = {}
+    for internship in internships:
+        unique[internship["id"]] = internship["name"]
+
+    resolved = [{"id": key, "name": value} for key, value in unique.items()]
+    resolved.sort(key=lambda item: item["id"])
+
+    success(f"Discovered {len(resolved)} internships")
+    return resolved
+
+
+def print_internships(internships):
+    print(Fore.CYAN + "\n🎯 Available internships:\n")
+    for internship in internships:
+        print(f"  - {internship['id']} → {internship['name']}")
+
+
+def select_internship(internships):
+    print_internships(internships)
+    selected = input(Fore.MAGENTA + "\nEnter internship ID: ").strip()
+
+    try:
+        selected_id = int(selected)
+    except ValueError as exc:
+        raise ValueError("Invalid internship ID. Enter a numeric value.") from exc
+
+    valid_ids = {i["id"] for i in internships}
+    if selected_id not in valid_ids:
+        raise ValueError(f"Internship ID {selected_id} not found in discovered list.")
+
+    return selected_id
+
+
+def resolve_internship_id():
+    if CLI_INTERNSHIP_ID is not None:
+        success(f"Using internship ID from CLI: {CLI_INTERNSHIP_ID}")
+        return CLI_INTERNSHIP_ID
+
+    if ENV_INTERNSHIP_ID:
+        try:
+            env_id = int(ENV_INTERNSHIP_ID)
+        except ValueError as exc:
+            raise ValueError("INTERNYET_INTERNSHIP_ID must be numeric.") from exc
+        success(f"Using internship ID from .env: {env_id}")
+        return env_id
+
+    if DRY_RUN:
+        raise RuntimeError(
+            "Dry-run requires --internship-id or INTERNYET_INTERNSHIP_ID "
+            "(discovery requires login)."
+        )
+
+    internships = fetch_internships()
+    if not internships:
+        raise RuntimeError("No internships found for this account.")
+
+    if SELECT_INTERNSHIP:
+        selected_id = select_internship(internships)
+        success(f"Selected internship ID: {selected_id}")
+        return selected_id
+
+    if len(internships) == 1:
+        selected_id = internships[0]["id"]
+        success(f"Auto-selected internship ID: {selected_id}")
+        return selected_id
+
+    print_internships(internships)
+    raise RuntimeError(
+        "Multiple internships found. Use --select-internship or --internship-id."
+    )
+
+
+# ─────────────────────────────────────────────
 # SUBMIT / UPDATE ENTRY
 # ─────────────────────────────────────────────
-def submit_or_update(entry, index, total, date_to_id):
+def submit_or_update(entry, index, total, date_to_id, internship_id):
 
     for skill in entry["skills"]:
         if skill not in SKILL_LOOKUP:
             raise ValueError(f"Unknown skill: {skill}")
 
     payload = {
-        "internship_id": INTERNSHIP_ID,
+        "internship_id": internship_id,
         "date": entry["date"],
         "description": entry["work_summary"],
         "hours": entry["hours"],
@@ -312,13 +443,28 @@ def submit_or_update(entry, index, total, date_to_id):
 # ─────────────────────────────────────────────
 def main():
     banner()
+
+    if DRY_RUN and (DISCOVER_INTERNSHIPS or SELECT_INTERNSHIP):
+        raise RuntimeError("Discovery/selection requires login. Disable --dry-run.")
+
     login()
+
+    internships = None
+    if DISCOVER_INTERNSHIPS or SELECT_INTERNSHIP:
+        internships = fetch_internships()
+
+    if DISCOVER_INTERNSHIPS:
+        print_internships(internships)
+        print(Fore.CYAN + "\n📦 Discovery mode complete.\n")
+        sys.exit(0)
 
     if FETCH_ONLY:
         existing = fetch_existing_entries()
         save_existing_entries(existing)
         print(Fore.CYAN + "\n📦 Fetch-only mode complete.\n")
         sys.exit(0)
+
+    internship_id = resolve_internship_id()
 
     with open("entries.json", encoding="utf-8") as f:
         ENTRIES = json.load(f)
@@ -339,7 +485,7 @@ def main():
     print(Fore.MAGENTA + "\n📤 Processing Entries\n")
 
     for i, entry in enumerate(ENTRIES, start=1):
-        ok = submit_or_update(entry, i, total, date_to_id)
+        ok = submit_or_update(entry, i, total, date_to_id, internship_id)
 
         if ok:
             success_count += 1

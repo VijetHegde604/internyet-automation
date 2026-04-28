@@ -93,6 +93,7 @@ Create a `.env` file in the project root directory:
 ```env
 INTERNYET_EMAIL=your_email@example.com
 INTERNYET_PASSWORD=your_password_here
+INTERNYET_INTERNSHIP_ID=702
 ```
 
 Credentials are read only at runtime and are not stored elsewhere.
@@ -140,7 +141,7 @@ Skill names are case-sensitive and must exist in the internal skill lookup table
 Dry-run validates entries and prints intended actions without submitting data.
 
 ```bash
-python main.py --dry-run
+python main.py --dry-run --internship-id 702
 ```
 
 Example output:
@@ -182,6 +183,29 @@ Example output:
 Fetching existing portal entries
 Fetched 41 entries
 Backup saved → existing_entries_20260228_183021.json
+```
+
+---
+
+## Internship ID Selection (Dynamic)
+
+You can now provide internship ID in multiple ways:
+
+1. `--internship-id <id>` (highest priority)
+2. `.env` via `INTERNYET_INTERNSHIP_ID`
+3. Auto-discovery (if exactly one internship exists)
+4. Interactive selection using `--select-internship`
+
+Discover internships and exit:
+
+```bash
+python main.py --discover-internships
+```
+
+Interactive select and submit:
+
+```bash
+python main.py --select-internship
 ```
 
 ---
